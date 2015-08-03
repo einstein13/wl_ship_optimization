@@ -1,7 +1,9 @@
 
-class port():
+class Port():
     coordinates = [0,0]
     wares = []
+    description_short = "Very basic port class."
+    description_full = description_short+" Not very useful to play with, but can be a basic for another classes."
 
     def set_coordinates(self,coordinates):
         self.coordinates[0] = coordinates[0]
@@ -12,7 +14,7 @@ class port():
         return self.coordinates
 
     def copy(self, all_wares=None):
-        new_port = port()
+        new_port = Port()
         new_port.coordinates[0] = self.coordinates[0]
         new_port.coordinates[1] = self.coordinates[1]
         if all_wares is None:
