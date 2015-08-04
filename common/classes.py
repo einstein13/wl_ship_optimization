@@ -14,6 +14,11 @@ class Description():
 	def read_short_description(self):
 		return description_short
 
+	def copy_Description(self, destination_object):
+		destination_object.description_short = self.description_short
+		destination_object.description_full = self.description_full
+		return destination_object
+
 class Coordinates():
 	coordinates = [0,0]
 
@@ -28,6 +33,11 @@ class Coordinates():
     def distance_between_point(self, point):
     	return find_distance(self.coordinates, point)
 
+	def copy_Coordinates(self, destination_object):
+		destination_object.coordinates[0] = self.coordinates[0]
+		destination_object.coordinates[1] = self.coordinates[1]
+		return destination_object
+
 class TimeDistanceStatistics():
     total_distance_traveling = 0
     total_time_traveling = 0.0
@@ -41,6 +51,11 @@ class TimeDistanceStatistics():
     	self.total_time_traveling += distance*VELOCITY
     	self.total_distance_traveling += distance
     	return distance
+
+	def copy_TimeDistanceStatistics(self, destination_object):
+		destination_object.total_distance_traveling = self.total_distance_traveling
+		destination_object.total_time_traveling = total_time_traveling
+		return destination_object
 
 class ListOfWares():
 	wares = []
@@ -69,3 +84,12 @@ class ListOfWares():
         # how many wares can be loaded
         return 30-len(wares)
 
+    def copy_ListOfWares(self, destination_object, all_wares=None):
+        if all_wares is None:
+            for ware in self.wares:
+                destination_object.wares.append(ware.copy())
+        else:
+            for ware in self.wares:
+                position = find_first(ware,all_wares)
+                destination_object.wares.append(all_wares[position])
+        return destination_object
