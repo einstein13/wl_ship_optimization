@@ -35,25 +35,27 @@ class Ship(Description,
         # where the ship will go next
         return get_next_destination_wares()
 
-    def land_wares_to_port(self, wares_to_land, port):
+    def land_wares_to_port(self, wares_to_land, port, current_time):
         wares_to_port = []
         for ware in wares_to_land:
             ware.set_current_position(port)
-            ware.update_ware_state()
+            ware.update_ware_state(time)
             if not ware.read_destination_status():
                 wares_to_port.append(ware)
         return wares_to_port
 
-    def stop_at_port(self, port):
+    def stop_at_port(self, port, current_time):
         land_port = self.read_next_destination()
         if land_port != port:
             return -1
         #add to all wares distance between last stop and current
-        distance = self.distance_between_destinations()
-        self.add_distance_time(distance)
+        distance = self.distance_between_destinations() #find last trip length
+        self.add_distance_time(distance) #update distance to ship statistics
+        self.update_distances_for_wares(distance) #update distance to all wares onboard
+        self.set_coordinates(port.read_coordinates()) #update position of the ship
         #find wares connected to the port (destination = port)
         wares_to_land = self.find_wares_with_destination(port) #get wares
-        wares_to_port = self.land_wares_to_port(wares_to_land, port) #put them to port
+        wares_to_port = self.land_wares_to_port(wares_to_land, port, current_time) #put them to port
         self.delete_wares_from_list(wares_to_land) #delete from ship
         #stop the ship
         return self.set_current_state(0)

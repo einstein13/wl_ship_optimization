@@ -86,6 +86,11 @@ class ListOfWares():
 
 	def delete_wares_from_list(self, wares_to_delete):
 		delete_elements_from_list(wares_to_delete, self.wares)
+		return wares_to_delete
+
+	def add_wares_to_list(self, wares_to_add):
+		self.wares.extend(wares_to_add)
+		return wares_to_add
 
 	def number_of_wares(self):
 		return len(self.wares)
@@ -93,6 +98,11 @@ class ListOfWares():
     def space_left(self):
         # how many wares can be loaded to a ship
         return 30-self.number_of_wares()
+
+    def update_distances_for_wares(self, distance):
+    	for ware in self.wares:
+    		ware.add_route_length(distance)
+    	return distance
 
     def copy_ListOfWares(self, destination_object, all_wares=None):
         if all_wares is None:

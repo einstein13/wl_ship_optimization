@@ -30,8 +30,15 @@ class WareStatistics():
 
     def set_time_begin(self, time):
         self.t_start = time
-    	t_end = -1.0 #ware at destination port
+        t_end = -1.0 #ware at destination port
         return
+
+    def set_time_end(self, time):
+        return self.t_end = time
+
+    def add_route_length(self, distance):
+        return route_length += distance
+
 
 class WareState():
     current_position = "" #ship or port
