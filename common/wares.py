@@ -41,3 +41,14 @@ class WareState():
     	destination_ware.current_position = self.current_position
     	destination_ware.destination_reached = self.destination_reached
     	return destination_ware
+
+    def set_destination_status(self, state=False):
+        self.destination_reached = state
+        return state
+
+    def set_current_position(self, current_object=""):
+        self.current_position = current_object
+        return current_object
+
+    def read_destination_status(self):
+        return destination_reached

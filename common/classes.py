@@ -77,12 +77,22 @@ class ListOfWares():
 				result.append(ware)
 		return result
 
+	def find_wares_with_destination_list(self, list_ports):
+		result = []
+		for ware in self.wares:
+			if ware.destination_port in list_ports:
+				result.append(ware)
+		return result
+
 	def delete_wares_from_list(self, wares_to_delete):
 		delete_elements_from_list(wares_to_delete, self.wares)
 
+	def number_of_wares(self):
+		return len(self.wares)
+
     def space_left(self):
-        # how many wares can be loaded
-        return 30-len(wares)
+        # how many wares can be loaded to a ship
+        return 30-self.number_of_wares()
 
     def copy_ListOfWares(self, destination_object, all_wares=None):
         if all_wares is None:

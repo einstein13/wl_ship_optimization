@@ -16,6 +16,9 @@ class LastNextDestinations():
     def read_next_destination(self):
         return self.next_destination
 
+    def read_last_destination(self):
+        return self.last_destination
+
     def distance_between_destinations(self):
     	if self.last_destination == "":
     		return 0
@@ -52,6 +55,9 @@ class ShipState():
     def set_current_state(self, state=-1):
         self.current_state = state
         return state
+
+    def is_iddle(self):
+        return self.current_state == -1
 
     def read_current_state(self):
         return self.current_state
