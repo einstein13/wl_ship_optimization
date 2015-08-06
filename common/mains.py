@@ -61,11 +61,14 @@ class SimulationTime():
 	simulation_steps = 0
     time_step = STEP_TIME
 
+    def reset_timer(self):
+        return self.simulation_steps = 0
+
     def get_time_step(self):
     	return self.time_step
 
     def get_current_time(self):
     	return self.time_step*self.simulation_steps
 
-    def add_one_step(self):
+    def add_time_step(self):
     	return self.simulation_steps += 1

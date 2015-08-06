@@ -61,9 +61,11 @@ class ListOfWares():
 	wares = []
 
 	def get_next_destination_wares(self):
+        # useful for ships
 		return self.wares[0].destination_port
 
 	def get_all_destinations_wares(self):
+        # useful for ships, ports
 		destinations = []
 		for ware in self.wares:
 			if not ware.destination_port in destinations:
@@ -71,6 +73,7 @@ class ListOfWares():
 		return destinations
 
 	def find_wares_with_destination(self, port):
+        # useful for ships, ports
 		result = []
 		for ware in self.wares:
 			if ware.destination_port == port:
@@ -78,6 +81,7 @@ class ListOfWares():
 		return result
 
 	def find_wares_with_destination_list(self, list_ports):
+        # useful for ports
 		result = []
 		for ware in self.wares:
 			if ware.destination_port in list_ports:
@@ -85,25 +89,36 @@ class ListOfWares():
 		return result
 
 	def delete_wares_from_list(self, wares_to_delete):
+        # useful for ships, ports
 		delete_elements_from_list(wares_to_delete, self.wares)
 		return wares_to_delete
 
 	def add_wares_to_list(self, wares_to_add):
+        # useful for ships, ports
 		self.wares.extend(wares_to_add)
-		wares_to_add.
 		return wares_to_add
 
 	def number_of_wares(self):
+        # useful for ships, ports
 		return len(self.wares)
 
     def space_left(self):
+        # useful for ships
         # how many wares can be loaded to a ship
         return 30-self.number_of_wares()
 
     def update_distances_for_wares(self, distance):
+        # useful for ships
     	for ware in self.wares:
     		ware.add_route_length(distance)
     	return distance
+
+    def all_wares_reached_destinations(self):
+        # useful for main experiment
+        for ware in slef.wares:
+            if not ware.read_destination_status():
+                return False
+        return True
 
     def copy_ListOfWares(self, destination_object, all_wares=None):
         if all_wares is None:

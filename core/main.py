@@ -57,7 +57,25 @@ class experiment(ShipList, PortList, ListOfWares, SimulationTime, Description):
         self.dock_ships(current_time)
         return 0
 
-    def make_experiment(self, ship_number=0, port_number=0):
+    def set_test_case(self, ship_class, port_class, ware_class, case_number=1):
+        if number==1:
+            self.test1_definition(ship_class, port_class, ware_class)
+            return True
+        return False
+
+    def make_experiment(self, ship_number=0, port_number=0, test_case=1):
         ship=SHIPS[ship_number]
         port=PORTS[port_number]
+        ware=Ware
         # ship and port classes are selected
+        self.set_test_case(ship, port, ware, test_case)
+        self.reset_timer()
+        while not self.all_wares_reached_destinations():
+            current_time = self.get_current_time()
+            self.simulation_step(current_time)
+            self.add_time_step()
+        print self.wares_list
+        print self.ports_list
+        print self.ships_list
+        return True
+
