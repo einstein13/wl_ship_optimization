@@ -7,6 +7,16 @@ class Ware(DestinationPoints,
         WareState,
         TimeDistanceStatistics):
 
+    def update_ware_state(self, current_time):
+        if self.current_position == self.destination_port:
+            self.set_time_end(current_time)
+            return self.set_destination_status(True)
+        return self.set_destination_status(False)
+
+    def start_ware_in_simulation(self):
+        self.set_current_position(self.read_starting_point())
+        return self.read_current_position()
+
     def copy(self):
         new_ware=ware()
         #DestinationPoints
@@ -18,15 +28,3 @@ class Ware(DestinationPoints,
         #TimeDistanceStatistics
         self.copy_TimeDistanceStatistics(new_ware)
         return new_ware
-
-    def update_ware_state(self, current_time):
-        if self.current_position == self.destination_port:
-            self.set_time_end(current_time)
-            return self.set_destination_status(True)
-        return self.set_destination_status(False)
-
-
-
-
-
-        

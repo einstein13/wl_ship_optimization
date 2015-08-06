@@ -1,4 +1,3 @@
-
 def find_first(element,list):
     for itr in range(list):
         if element == list[itr]:

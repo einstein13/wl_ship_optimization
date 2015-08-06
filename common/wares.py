@@ -5,17 +5,20 @@ class DestinationPoints():
     start_port = "" #start port
     route_min = 0 #distance between start and destination port
 
-    def copy_DestinationPoints(self, destination_ware):
-    	destination_ware.destination_port = self.destination_port
-    	destination_ware.start_port = self.start_port
-    	destination_ware.route_min = self.route_min
-    	return destination_ware
-
     def set_ports(self, start, destination):
         self.start_port = start
         self.destination_port = destination
         self.route_min = find_distance_between_ports(start, destination)
         return
+
+    def read_starting_point(self):
+        return self.start_port
+
+    def copy_DestinationPoints(self, destination_ware):
+        destination_ware.destination_port = self.destination_port
+        destination_ware.start_port = self.start_port
+        destination_ware.route_min = self.route_min
+        return destination_ware
 
 class WareStatistics():
     t_start = 0.0 #ware begin to exist
@@ -39,6 +42,9 @@ class WareStatistics():
     def add_route_length(self, distance):
         return route_length += distance
 
+    def read_when_begin_exist(self):
+        return t_start
+
 
 class WareState():
     current_position = "" #ship or port
@@ -59,3 +65,6 @@ class WareState():
 
     def read_destination_status(self):
         return destination_reached
+
+    def read_current_position(self):
+        return current_position

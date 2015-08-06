@@ -1,7 +1,7 @@
 # ship-only common classes
 
 from core.logic import find_distance_between_ports
-from settings import VELOCITY
+from settings import VELOCITY, EPSILON_TIME
 
 class LastNextDestinations():
     last_destination = "" #port
@@ -16,6 +16,12 @@ class LastNextDestinations():
     def read_next_destination(self):
         return self.next_destination
 
+    def is_next_destination(self, destination):
+        return self.next_destination == destination
+
+    def is_destination_reached(self, time):
+        return time_reach < time + EPSILON_TIME 
+
     def read_last_destination(self):
         return self.last_destination
 
@@ -27,6 +33,7 @@ class LastNextDestinations():
     def update_time_reach(self, current_time=0.0):
     	self.time_reach = current_time + VELOCITY*self.distance_between_destinations
     	return self.time_reach
+
 
     def copy_LastNextDestinations(self, destination_ship, all_ports=None):
         if all_ports is None:
@@ -55,6 +62,9 @@ class ShipState():
     def set_current_state(self, state=-1):
         self.current_state = state
         return state
+
+    def is_with_state(self, state):
+        return self.current_state == state
 
     def is_iddle(self):
         return self.current_state == -1

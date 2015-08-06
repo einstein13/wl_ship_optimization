@@ -90,6 +90,7 @@ class ListOfWares():
 
 	def add_wares_to_list(self, wares_to_add):
 		self.wares.extend(wares_to_add)
+		wares_to_add.
 		return wares_to_add
 
 	def number_of_wares(self):
