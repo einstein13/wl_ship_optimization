@@ -26,10 +26,10 @@ class WareStatistics():
     route_length = 0 #total length of route
 
     def copy_WareStatistics(self, destination_ware):
-    	destination_ware.t_start = self.t_start
-    	destination_ware.t_end = self.t_end
-    	destination_ware.route_length = self.route_length
-    	return destination_ware
+        destination_ware.t_start = self.t_start
+        destination_ware.t_end = self.t_end
+        destination_ware.route_length = self.route_length
+        return destination_ware
 
     def set_time_begin(self, time):
         self.t_start = time
@@ -45,17 +45,12 @@ class WareStatistics():
         return self.route_length
 
     def read_when_begin_exist(self):
-        return t_start
+        return self.t_start
 
 
 class WareState():
     current_position = "" #ship or port
     destination_reached = False #if true then end of route
-
-    def copy_WareState(self, destination_ware):
-    	destination_ware.current_position = self.current_position
-    	destination_ware.destination_reached = self.destination_reached
-    	return destination_ware
 
     def set_destination_status(self, state=False):
         self.destination_reached = state
@@ -66,7 +61,12 @@ class WareState():
         return current_object
 
     def read_destination_status(self):
-        return destination_reached
+        return self.destination_reached
 
     def read_current_position(self):
-        return current_position
+        return self.current_position
+
+    def copy_WareState(self, destination_ware):
+        destination_ware.current_position = self.current_position
+        destination_ware.destination_reached = self.destination_reached
+        return destination_ware

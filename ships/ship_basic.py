@@ -22,7 +22,7 @@ class Ship(Description,
         wares_to_port = []
         for ware in wares_to_land:
             ware.set_current_position(port)
-            ware.update_ware_state(time)
+            ware.update_ware_state(current_time)
             if not ware.read_destination_status():
                 wares_to_port.append(ware)
         return wares_to_port

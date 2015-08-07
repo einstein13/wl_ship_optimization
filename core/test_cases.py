@@ -3,7 +3,7 @@ from settings import STEP_TIME
 
 def ports_test1(port_class, basic_distance):
     port_list=[]
-    for itr in range(-1,1):
+    for itr in range(-1,2):
         port_to_add=port_class()
         port_to_add.set_coordinates([basic_distance*itr,0])
         port_list.append(port_to_add)
@@ -16,7 +16,9 @@ def ships_test1(ship_class, ports_list):
     ship_test.set_coordinates(port_near_ship.read_coordinates())
     ship_test.set_next_destination(port_near_ship)
     ship_test.set_next_destination(port_near_ship)
-    ship_test.set_state(-1) # iddle
+    ship_test.set_current_state(-1) # iddle
+    ships_list.append(ship_test)
+    return ships_list
 
 def wares_test1(ware_class, ports_list, basic_distance):
     random.seed(1) # have the same basic situation for all tests

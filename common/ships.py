@@ -20,7 +20,7 @@ class LastNextDestinations():
         return self.next_destination == destination
 
     def is_destination_reached(self, time):
-        return time_reach < time + EPSILON_TIME 
+        return self.time_reach < time + EPSILON_TIME 
 
     def read_last_destination(self):
         return self.last_destination
