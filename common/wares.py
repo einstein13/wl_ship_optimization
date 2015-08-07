@@ -37,10 +37,12 @@ class WareStatistics():
         return
 
     def set_time_end(self, time):
-        return self.t_end = time
+        self.t_end = time
+        return time
 
     def add_route_length(self, distance):
-        return route_length += distance
+        self.route_length += distance
+        return self.route_length
 
     def read_when_begin_exist(self):
         return t_start
