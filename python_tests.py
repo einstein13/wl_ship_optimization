@@ -114,3 +114,17 @@ print(list2)
 print(list1==list2)
 print(list1!=list2)
 """
+
+"""
+print("================================")
+print("Test of function delete_elements_from_list():")
+print("================================")
+from core.lists import delete_elements_from_list
+a=[1,2,3,4,5,6,7,8,9,10]
+b=[2,5,8]
+print(a)
+print(b)
+delete_elements_from_list(b,a)
+print(a)
+print(b)
+"""

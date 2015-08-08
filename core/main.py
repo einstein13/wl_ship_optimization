@@ -16,17 +16,23 @@ class experiment(ShipList, PortList, ListOfWares, SimulationTime, Description):
         for ship in docked_ships:
             port_where_ship = self.find_port_at_location(ship.read_coordinates())
             if port_where_ship == 0:
-                print("ERROR: no port where docked ship\n")
-                ship.start_ship()
+                print("ERROR: main: ship docked with no port destination")
+                ship.start_ship(current_time)
                 continue #jump to another ship
+            if len(port_where_ship.wares) == 0:
+                #print("WARNING: no wares at port, nothing to load")
+                ship.start_ship(current_time)
             #now we have both: port and ship
-            port_where_ship.load_wares_to_ship(ship)
+            other_ships_going_to_port = self.select_ships_going_to_port(port_where_ship)
+            port_where_ship.load_wares_to_ship(ship, other_ships_going_to_port)
             ship.start_ship(current_time)
         return 0
 
     def call_ships_to_ports(self, current_time):
         ports_calling = self.select_ports_calling()
         iddle_ships = self.select_ships_by_state(-1)
+        if len(ports_calling)==0 or len(iddle_ships)==0:
+            return 0
         for port in ports_calling:
             if len(iddle_ships)==0:
                 break
@@ -38,6 +44,8 @@ class experiment(ShipList, PortList, ListOfWares, SimulationTime, Description):
         for ware in new_wares:
             port = ware.start_ware_in_simulation()
             port.add_wares_to_list([ware])
+            ships_going_to_port = self.select_ships_going_to_port(port)
+            port.update_calling_ships(ships_going_to_port)
         return 0
 
     def dock_ships(self, current_time):
@@ -70,11 +78,6 @@ class experiment(ShipList, PortList, ListOfWares, SimulationTime, Description):
             current_time = self.get_current_time()
             self.simulation_step(current_time)
             self.add_time_step()
-        #print self.wares_list
-        #for element in self.wares_list:
-        #    print(element.__dict__)
-        print self.ports_list
-        print self.ships_list
         print current_time
         return True
 

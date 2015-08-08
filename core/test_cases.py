@@ -47,9 +47,3 @@ def wares_test1(ware_class, ports_list, basic_distance):
         new_ware.set_time_begin(total_time_iterations*STEP_TIME)
         wares_list.append(new_ware)
     return wares_list
-
-
-
-
-
-

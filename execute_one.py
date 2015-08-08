@@ -17,5 +17,7 @@ def execute_one_experiment(port_class_number=None, ship_class_number=None, test_
     ware_class=Ware
     one_experiment=experiment()
     one_experiment.make_experiment(ware_class, port_class, ship_class, test_case)
+    #for ware in one_experiment.wares_list:
+    #    print "\t"+str(ware.t_end)
 
 execute_one_experiment()

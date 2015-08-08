@@ -31,7 +31,7 @@ class LastNextDestinations():
     	return find_distance_between_ports(self.last_destination, self.next_destination)
 
     def update_time_reach(self, current_time=0.0):
-    	self.time_reach = current_time + VELOCITY*self.distance_between_destinations
+    	self.time_reach = current_time + VELOCITY*self.distance_between_destinations()
     	return self.time_reach
 
 

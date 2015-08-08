@@ -90,7 +90,7 @@ class ListOfWares():
 
     def delete_wares_from_list(self, wares_to_delete):
         # useful for ships, ports
-        delete_elements_from_list(wares_to_delete, self.wares)
+        self.wares=delete_elements_from_list(wares_to_delete, self.wares)
         return wares_to_delete
 
     def add_wares_to_list(self, wares_to_add):

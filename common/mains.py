@@ -21,7 +21,14 @@ class ShipList():
     def select_ships_docking(self, simulation_time):
         selected_ships = []
         for ship in self.ships_list:
-            if ship.is_destination_reached(simulation_time):
+            if ship.is_destination_reached(simulation_time) and ship.read_current_state()==1:
+                selected_ships.append(ship)
+        return selected_ships
+
+    def select_ships_going_to_port(self, destination_port):
+        selected_ships = []
+        for ship in self.ships_list:
+            if ship.is_next_destination(destination_port) and ship.read_current_state()==1:
                 selected_ships.append(ship)
         return selected_ships
 
