@@ -14,6 +14,9 @@ class DestinationPoints():
     def read_starting_point(self):
         return self.start_port
 
+    def read_route_min(self):
+        return self.route_min
+
     def copy_DestinationPoints(self, destination_ware):
         destination_ware.destination_port = self.destination_port
         destination_ware.start_port = self.start_port
@@ -46,6 +49,12 @@ class WareStatistics():
 
     def read_when_begin_exist(self):
         return self.t_start
+
+    def read_route_length(self):
+        return self.route_length
+
+    def read_time_existence(self):
+        return self.t_end-self.t_start
 
 
 class WareState():

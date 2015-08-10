@@ -26,3 +26,33 @@ EPSILON_TIME = 0.00001
 # how long the ship goes one unit
 # it is recommended to be STEP_TIME
 VELOCITY = STEP_TIME
+
+# stats that are interesting
+# commented lines aren't used
+STATISTICS_TO_DO = (
+    "general: total simulation time",
+    "ships: mean utilization",
+    "ships: max utilization",
+    "ports: mean wares waiting",
+    "ports: max wares waiting",
+    "wares: min distance of journey",
+    "wares: mean distance of journey",
+    "wares: max distance of journey",
+    "wares: min time of existence",
+    "wares: mean time of existence",
+    "wares: max time of existence",
+    "wares: max journey efficiency",
+    "wares: mean journey efficiency",
+    "wares: min journey efficiency",
+    )
+
+# stats display
+# all of them are True/False
+STATISTICS_DISPLAYS = {
+    "short class descriptions" : True,
+    "separate lines" : True,
+    "help text" : True,
+    }
+
+# stats optimization (used for execute_all.py)
+STATISTICS_TO_OPTIMIZE = "general: total simulation time"

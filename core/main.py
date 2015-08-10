@@ -3,7 +3,7 @@ from common.mains import ShipList, PortList, ListOfWares
 from common.mains import SimulationTime, GlobalShipStatistics, GlobalPortStatistics
 from common.classes import Description
 
-class experiment(ShipList,
+class Experiment(ShipList,
         PortList,
         ListOfWares,
         SimulationTime,
@@ -91,6 +91,5 @@ class experiment(ShipList,
             current_time = self.get_current_time()
             self.simulation_step(current_time)
             self.add_time_step()
-        print current_time
         return True
 

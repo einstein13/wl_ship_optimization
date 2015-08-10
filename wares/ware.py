@@ -17,6 +17,12 @@ class Ware(DestinationPoints,
         self.set_current_position(self.read_starting_point())
         return self.read_current_position()
 
+    def calculate_route_efficiency(self):
+        if self.read_destination_status:
+            return 1.0*self.read_route_length()/self.read_route_min()
+        print("ERROR: ware: not able to calculate efficiency")
+        return 0
+
     def copy(self):
         new_ware=ware()
         #DestinationPoints

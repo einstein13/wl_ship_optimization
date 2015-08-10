@@ -9,10 +9,10 @@ class Description():
     description_full = ""
 
     def read_full_description(self):
-        return description_full
+        return self.description_full
 
     def read_short_description(self):
-        return description_short
+        return self.description_short
 
     def copy_Description(self, destination_object):
         destination_object.description_short = self.description_short
