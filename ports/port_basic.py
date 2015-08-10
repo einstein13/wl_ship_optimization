@@ -31,6 +31,7 @@ class Port(Description, Coordinates, ListOfWares, CallingShip):
         return len(wares_to_load)
 
     def update_calling_ships(self, ships_going_to_port):
+        # consider how many ships we need
         number_of_wares = self.number_of_wares()
         # we need one ship for WARES_MAX wares
         ships_to_call = ceil(number_of_wares*1.0/WARES_MAX)
@@ -42,6 +43,7 @@ class Port(Description, Coordinates, ListOfWares, CallingShip):
         return 0
 
     def call_ships(self, iddle_ships, current_time):
+        # call ships- make them going
         number_of_calls = self.number_ships_to_call()
         for ship in iddle_ships:
             if number_of_calls <= 0:

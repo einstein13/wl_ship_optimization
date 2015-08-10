@@ -65,3 +65,59 @@ class SimulationTime():
     def add_time_step(self):
         self.simulation_steps += 1
         return self.simulation_steps
+
+class GlobalShipStatistics():
+    ships_to_ships_statistics=0
+    wares_to_ships_statistics=0
+    max_wares_taken_by_ship=0
+
+    def read_mean_ships_utilization(self):
+        return 1.0*wares_to_ships_statistics/ships_to_ships_statistics
+
+    def read_max_wares_taken_ship(self):
+        return self.max_wares_taken_by_ship
+
+    def update_global_ships_statistics(self, ships_list):
+        ships_going=0
+        wares_transported=0
+        tmp_wares=0
+        for ship in ships_list:
+            # if ship is going
+            if ship.is_with_state(1):
+                ships_going += 1
+                tmp_wares = ship.number_of_wares()
+                wares_transported += tmp_wares
+                # update max_wares
+                if tmp_wares > self.max_wares_taken_by_ship:
+                    max_wares_taken_by_ship = tmp_wares
+        if ships_going == 0:
+            return 0
+        self.ships_to_ships_statistics += ships_going
+        self.wares_to_ships_statistics += wares_transported
+        return 1.0*wares_transported/ships_going
+
+class GlobalPortStatistics():
+    ports_to_port_statistics=0
+    wares_to_port_statistics=0
+    max_wares_waiting_in_port=0
+
+    def read_mean_wares_waiting_in_port(self):
+        return 1.0*wares_to_port_statistics/ports_to_port_statistics
+
+    def read_max_wares_waiting_port(self):
+        return max_wares_waiting_in_port
+
+    def update_global_ports_statistics(self, port_list):
+        total_ports = len(port_list)
+        total_wares = 0
+        tmp_wares = 0
+        for port in port_list:
+            tmp_wares = port.number_of_wares()
+            total_wares += tmp_wares
+            # update max_wares
+            if self.max_wares_waiting_in_port < tmp_wares:
+                max_wares_waiting_in_port = tmp_wares
+        self.ports_to_port_statistics += total_ports
+        self.wares_to_port_statistics += total_wares
+        return 1.0*total_wares/total_ports
+

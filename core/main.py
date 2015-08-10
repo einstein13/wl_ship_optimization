@@ -1,14 +1,26 @@
 from core import test_cases
-from common.mains import ShipList, PortList, ListOfWares, SimulationTime
+from common.mains import ShipList, PortList, ListOfWares
+from common.mains import SimulationTime, GlobalShipStatistics, GlobalPortStatistics
 from common.classes import Description
 
-class experiment(ShipList, PortList, ListOfWares, SimulationTime, Description):
+class experiment(ShipList,
+        PortList,
+        ListOfWares,
+        SimulationTime,
+        Description,
+        GlobalShipStatistics,
+        GlobalPortStatistics):
     
     def test1_definition(self, ship_class, port_class, ware_class):
         basic_distance = 25
         self.ports_list = test_cases.ports_test1(port_class, basic_distance)       
         self.ships_list = test_cases.ships_test1(ship_class, self.ports_list)
         self.wares_list = test_cases.wares_test1(ware_class, self.ports_list, basic_distance)
+        return 0
+
+    def update_global_statistics(self):
+        self.update_global_ships_statistics(self.ships_list)
+        self.update_global_ports_statistics(self.ports_list)
         return 0
 
     def work_on_docked_ships(self, current_time):
@@ -61,6 +73,7 @@ class experiment(ShipList, PortList, ListOfWares, SimulationTime, Description):
         self.call_ships_to_ports(current_time)
         self.put_new_wares_to_ports(current_time)
         self.dock_ships(current_time)
+        self.update_global_statistics()
         return 0
 
     def set_test_case(self, ship_class, port_class, ware_class, case_number=1):
