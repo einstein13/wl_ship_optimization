@@ -32,17 +32,6 @@ class Ship(Description,
         # where the ship will go next
         return self.get_next_destination_wares()
 
-    def land_wares_to_port(self, wares_to_land, port, current_time):
-        # method used to put correct wares to the port
-        wares_to_port = []
-        for ware in wares_to_land:
-            ware.set_current_position(port)
-            ware.update_ware_state(current_time)
-            if not ware.read_destination_status():
-                # wares landed to port, but not in the correct place
-                wares_to_port.append(ware)
-        return wares_to_port
-
     def stop_at_port(self, port, current_time):
         # method used as docking the ship to the port
         land_port = self.read_next_destination()
@@ -62,9 +51,8 @@ class Ship(Description,
             return self.set_current_state(0)
         if self.number_of_wares()==0 and port.number_of_wares()==0:
             print "ERROR: ship: empty ship is docking to empty port"
-            return self.set_current_state(0)
-        wares_to_port = self.land_wares_to_port(wares_to_land, port, current_time) #put them to port
-        port.load_ware_from_ship(wares_to_port, current_time)
+        #wares_to_port = self.land_wares_to_port(wares_to_land, port, current_time) #put them to port
+        port.load_wares_from_ship(wares_to_land, current_time)
         self.delete_wares_from_list(wares_to_land) #delete from ship
         #stop the ship
         return self.set_current_state(0)

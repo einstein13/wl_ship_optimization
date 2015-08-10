@@ -51,17 +51,17 @@ class Port(Description, Coordinates, ListOfWares, CallingShip):
             number_of_calls -= 1
         return number_of_calls
 
-    def load_ware_from_ship(self, wares_list, current_time):
-        # this method is useful for wares that are loaded from ship to port,
-        # but their destination is not the port
-        # 1. add wares to self list
-        self.add_wares_to_list(wares_list)
-        # 2. update statistics for wares
+    def load_wares_from_ship(self, wares_list, current_time):
+        wares_to_add=[]
         for ware in wares_list:
-            ware.set_coordinates(self.read_coordinates())
+            # update ware statistics
             ware.set_current_position(self)
             ware.update_ware_state(current_time)
-        return wares_list
+            if not ware.read_destination_status():
+                # if it is not a correct destination - add to port list
+                wares_to_add.append(ware)
+        self.add_wares_to_list(wares_to_add)
+        return len(wares_to_add)
 
     def copy(self, all_wares=None):
         new_port = Port()
