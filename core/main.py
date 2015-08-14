@@ -34,6 +34,7 @@ class Experiment(ShipList,
             if len(port_where_ship.wares) == 0:
                 #print("WARNING: no wares at port, nothing to load")
                 ship.start_ship(current_time)
+                return 0
             #now we have both: port and ship
             other_ships_going_to_port = self.select_ships_going_to_port(port_where_ship)
             port_where_ship.load_wares_to_ship(ship, other_ships_going_to_port)

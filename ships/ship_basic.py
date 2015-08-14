@@ -36,7 +36,7 @@ class Ship(Description,
         # method used as docking the ship to the port
         land_port = self.read_next_destination()
         if land_port != port:
-            print "ERROR: ship: is on the wrong destination"
+            print("ERROR: ship: is on the wrong destination")
             self.start_ship(current_time)
             return -1
         #add to all wares distance between last stop and current
@@ -47,10 +47,10 @@ class Ship(Description,
         #find wares connected to the port (destination = port)
         wares_to_land = self.find_wares_with_destination(port) #get wares
         if len(wares_to_land)==0 and port.number_of_wares()==0:
-            print "ERROR: ship: nothing to land and empty port"
+            print("ERROR: ship: nothing to land and empty port")
             return self.set_current_state(0)
         if self.number_of_wares()==0 and port.number_of_wares()==0:
-            print "ERROR: ship: empty ship is docking to empty port"
+            print("ERROR: ship: empty ship is docking to empty port")
         #wares_to_port = self.land_wares_to_port(wares_to_land, port, current_time) #put them to port
         port.load_wares_from_ship(wares_to_land, current_time)
         self.delete_wares_from_list(wares_to_land) #delete from ship
