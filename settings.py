@@ -8,9 +8,26 @@ SHIPS = ['ships.ship_basic']
 # ports classes that can be used in the experiment
 PORTS = ['ports.port_basic']
 
+# number of possible tests cases
+# all tests should be hardcoded first
+POSSIBLE_TESTS_CASES = 2
+
 # settings for one test:
 # (port_class_number, ship_class_number)
-ONE_TEST = (0,0)
+# 1- first, 2-second, ...
+ONE_TEST = (1,1)
+
+# test cases to do with execute_all command
+# lists are [port_class, ship_class, test_case]
+# '-1' means all possibilities
+# examples:
+#    [-1, -1, -1] (all possible tests)
+#    [-1, -1, 1] (all possible classes for first test)
+#    [1, 1, [1,2,3]] (first port and ship classes for test cases 1, 2, 3)
+#    [[1,2],[1,2,3], 1] (all pairs port-ship for 1 & 2 ports and 1, 2 & 3 ships, all for first test case)
+TEST_CASES = [
+    [[1],-1,1]
+    ]
 
 # number of wares that can hold a ship
 WARES_MAX = 30

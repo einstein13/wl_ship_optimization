@@ -1,4 +1,5 @@
 from core import test_cases
+from settings import POSSIBLE_TESTS_CASES
 from common.mains import ShipList, PortList, ListOfWares
 from common.mains import SimulationTime, GlobalShipStatistics, GlobalPortStatistics
 from common.classes import Description
@@ -78,6 +79,9 @@ class Experiment(ShipList,
         return 0
 
     def set_test_case(self, ship_class, port_class, ware_class, case_number=1):
+        if case_number > POSSIBLE_TESTS_CASES:
+            print("ERROR: test case number is higher than implemented methods")
+            return False
         if case_number==1:
             self.test1_definition(ship_class, port_class, ware_class)
             return True
