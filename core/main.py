@@ -65,22 +65,22 @@ class Experiment(ShipList,
         self.update_global_ports_statistics(self.ports_list)
         return 0
 
-    def work_on_docked_ships(self, current_time):
+    def work_on_docked_ships(self, current_time, all_ports):
         docked_ships = self.select_ships_by_state(0)
         for ship in docked_ships:
             port_where_ship = self.find_port_at_location(ship.read_coordinates())
             if port_where_ship == 0:
                 print("ERROR: main: ship docked with no port destination")
-                ship.start_ship(current_time)
+                ship.start_ship(current_time, all_ports)
                 continue #jump to another ship
             if len(port_where_ship.wares) == 0:
                 #print("WARNING: no wares at port, nothing to load")
-                ship.start_ship(current_time)
+                ship.start_ship(current_time, all_ports)
                 return 0
             #now we have both: port and ship
             other_ships_going_to_port = self.select_ships_going_to_port(port_where_ship)
             port_where_ship.load_wares_to_ship(ship, other_ships_going_to_port)
-            ship.start_ship(current_time)
+            ship.start_ship(current_time, all_ports)
         return 0
 
     def call_ships_to_ports(self, current_time):
@@ -105,19 +105,19 @@ class Experiment(ShipList,
             port.update_calling_ships(ships_going_to_port)
         return 0
 
-    def dock_ships(self, current_time):
+    def dock_ships(self, current_time, all_ports):
         ships_docking = self.select_ships_docking(current_time)
         for ship in ships_docking:
             port = ship.read_next_destination()
-            ship.stop_at_port(port, current_time)
+            ship.stop_at_port(port, current_time, all_ports)
         return 0
 
-    def simulation_step(self, current_time):
+    def simulation_step(self, current_time, all_ports):
         # this order makes docking ships stay STEP_TIME before leave to another port
-        self.work_on_docked_ships(current_time)
+        self.work_on_docked_ships(current_time, all_ports)
         self.call_ships_to_ports(current_time)
         self.put_new_wares_to_ports(current_time)
-        self.dock_ships(current_time)
+        self.dock_ships(current_time, all_ports)
         self.update_global_statistics()
         return 0
 
@@ -128,7 +128,7 @@ class Experiment(ShipList,
         current_time=0
         while not self.all_wares_reached_destinations():
             current_time = self.get_current_time()
-            self.simulation_step(current_time)
+            self.simulation_step(current_time, self.ports_list)
             self.add_time_step()
         return True
 
