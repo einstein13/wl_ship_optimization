@@ -10,7 +10,7 @@ PORTS = ['ports.port_basic']
 
 # number of possible tests cases
 # all tests should be hardcoded first
-POSSIBLE_TESTS_CASES = 3
+POSSIBLE_TESTS_CASES = 4
 
 # settings for one test:
 # (port_class_number, ship_class_number)
