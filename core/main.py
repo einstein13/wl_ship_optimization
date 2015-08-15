@@ -27,6 +27,13 @@ class Experiment(ShipList,
         self.wares_list = test_cases.wares_test2(ware_class, self.ports_list, basic_distance)
         return 0
 
+    def test3_definition(self, ship_class, port_class, ware_class):
+        basic_distance = 20
+        self.ports_list = test_cases.ports_test3(port_class, basic_distance)       
+        self.ships_list = test_cases.ships_test3(ship_class, self.ports_list)
+        self.wares_list = test_cases.wares_test3(ware_class, self.ports_list, basic_distance)
+        return 0
+
     def set_test_case(self, ship_class, port_class, ware_class, case_number=1):
         random.seed(1) # have the same basic situation for all tests
         if case_number > POSSIBLE_TESTS_CASES:
@@ -37,6 +44,9 @@ class Experiment(ShipList,
             return True
         elif case_number==2:
             self.test2_definition(ship_class, port_class, ware_class)
+            return True
+        elif case_number==3:
+            self.test3_definition(ship_class, port_class, ware_class)
             return True
         return False
 
