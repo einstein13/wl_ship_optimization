@@ -68,7 +68,7 @@ STATISTICS_TO_DO = (
 STATISTICS_DISPLAYS = {
     "short class descriptions" : True,
     "separate lines" : True,
-    "help text" : True,
+    "help text" : False,
     }
 
 # stats optimization (used for execute_all.py)

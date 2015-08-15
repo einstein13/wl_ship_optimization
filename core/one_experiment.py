@@ -4,7 +4,7 @@ from core.statistics import Statistics
 from core.modules import import_ship_class, import_port_class
 from wares.ware import Ware
 
-def execute_one_experiment(port_class_number=None, ship_class_number=None, test_case=1, do_stats=True):
+def execute_one_experiment(port_class_number=None, ship_class_number=None, test_case=2, do_stats=True):
     if port_class_number==None:
         port_class_number=ONE_TEST[0]
     if ship_class_number==None:

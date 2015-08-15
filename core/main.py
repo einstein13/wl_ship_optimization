@@ -1,3 +1,4 @@
+import random
 from core import test_cases
 from settings import POSSIBLE_TESTS_CASES
 from common.mains import ShipList, PortList, ListOfWares
@@ -18,6 +19,26 @@ class Experiment(ShipList,
         self.ships_list = test_cases.ships_test1(ship_class, self.ports_list)
         self.wares_list = test_cases.wares_test1(ware_class, self.ports_list, basic_distance)
         return 0
+
+    def test2_definition(self, ship_class, port_class, ware_class):
+        basic_distance = 20
+        self.ports_list = test_cases.ports_test2(port_class, basic_distance)       
+        self.ships_list = test_cases.ships_test2(ship_class, self.ports_list)
+        self.wares_list = test_cases.wares_test2(ware_class, self.ports_list, basic_distance)
+        return 0
+
+    def set_test_case(self, ship_class, port_class, ware_class, case_number=1):
+        random.seed(1) # have the same basic situation for all tests
+        if case_number > POSSIBLE_TESTS_CASES:
+            print("ERROR: test case number is higher than implemented methods")
+            return False
+        if case_number==1:
+            self.test1_definition(ship_class, port_class, ware_class)
+            return True
+        elif case_number==2:
+            self.test2_definition(ship_class, port_class, ware_class)
+            return True
+        return False
 
     def update_global_statistics(self):
         self.update_global_ships_statistics(self.ships_list)
@@ -51,6 +72,8 @@ class Experiment(ShipList,
             if len(iddle_ships)==0:
                 break
             port.call_ships(iddle_ships, current_time)
+            ships_going_to_port = self.select_ships_going_to_port(port)
+            port.update_calling_ships(ships_going_to_port)
         return 0
 
     def put_new_wares_to_ports(self, current_time):
@@ -77,15 +100,6 @@ class Experiment(ShipList,
         self.dock_ships(current_time)
         self.update_global_statistics()
         return 0
-
-    def set_test_case(self, ship_class, port_class, ware_class, case_number=1):
-        if case_number > POSSIBLE_TESTS_CASES:
-            print("ERROR: test case number is higher than implemented methods")
-            return False
-        if case_number==1:
-            self.test1_definition(ship_class, port_class, ware_class)
-            return True
-        return False
 
     def make_experiment(self, ware_class, port_class, ship_class, test_case=1):
         # ship and port classes are selected

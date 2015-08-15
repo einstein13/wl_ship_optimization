@@ -34,7 +34,7 @@ class Port(Description, Coordinates, ListOfWares, CallingShip):
         # consider how many ships we need
         number_of_wares = self.number_of_wares()
         # we need one ship for WARES_MAX wares
-        ships_to_call = ceil(number_of_wares*1.0/WARES_MAX)
+        ships_to_call = int(ceil(number_of_wares*1.0/WARES_MAX))
         # some ships can go to the port- let's use them
         ships_to_call = ships_to_call-len(ships_going_to_port)
         # there can't be less than 0:
