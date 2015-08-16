@@ -4,7 +4,11 @@ from core.lists import delete_elements_from_list
 from common.classes import Description, Coordinates, ListOfWares
 from common.ports import CallingShip
 
-class Port(Description, Coordinates, ListOfWares, CallingShip):
+class Port(Description,
+        Coordinates,
+        ListOfWares,
+        CallingShip,
+        object):
 
     def __init__(self):
         # Description
@@ -16,7 +20,6 @@ class Port(Description, Coordinates, ListOfWares, CallingShip):
         self.wares = []
         # CallingShip
         self.ships_to_call = 0
-        return None
 
     def load_wares_to_ship(self, ship, ships_going_to_port):
         if not ship.read_coordinates() == self.read_coordinates():

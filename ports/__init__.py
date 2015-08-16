@@ -1,1 +1,4 @@
-from ports.port_basic import *
+from settings import PORTS
+
+for port in PORTS:
+	__import__('ports.'+port)

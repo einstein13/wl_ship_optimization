@@ -7,7 +7,8 @@ class Ship(Description,
         TimeDistanceStatistics,
         LastNextDestinations,
         ShipState,
-        ListOfWares):
+        ListOfWares,
+        object):
 
     def __init__(self):
         # Description
@@ -26,7 +27,6 @@ class Ship(Description,
         self.current_state = -1
         # ListOfWares
         self.wares = []
-        return None
 
     # THIS METHOD CAN BE MUCH BETTER
     # (f.e. change destination for more wares)
