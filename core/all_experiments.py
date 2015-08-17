@@ -18,7 +18,7 @@ def translate_integers(simple_order):
     result = []
     for itr in range(3):
         if type(simple_order[itr]) == list:
-            result.append(simple_order[0])
+            result.append(simple_order[itr])
         elif simple_order[itr] == -1:
             if itr == 0:
                 result.append(range(1,len(PORTS)+1))

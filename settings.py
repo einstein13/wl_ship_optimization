@@ -4,7 +4,8 @@ here goes settings used in whole project
 
 # ships classes that can be used in the experiment
 # please add only file names in ships folder, no ".py" needed
-SHIPS = ['ship_basic']
+SHIPS = ['ship_basic',
+    'ship_Tibor']
 
 # ports classes that can be used in the experiment
 # please add only file names in ships folder, no ".py" needed
@@ -28,7 +29,7 @@ ONE_TEST = (1,1)
 #    [1, 1, [1,2,3]] (first port and ship classes for test cases 1, 2, 3)
 #    [[1,2],[1,2,3], 1] (all pairs port-ship for 1 & 2 ports and 1, 2 & 3 ships, all for first test case)
 TEST_CASES = [
-    [-1,-1,1]
+    [-1, [1,2] ,-1]
     ]
 
 # number of wares that can hold a ship

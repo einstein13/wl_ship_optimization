@@ -30,23 +30,23 @@ class Ship(Description,
 
     # THIS METHOD CAN BE MUCH BETTER
     # (f.e. change destination for more wares)
-    def get_next_destination_ship(self):
+    def get_next_destination_ship(self, all_ports, all_ships):
         # where the ship will go next
         return self.get_next_destination_wares()
 
     # THIS METHOD CAN BE MUCH BETTER
     # (f.e. decide to go to the port where lots of wares)
-    def set_ship_iddle(self, all_ports):
+    def set_ship_iddle(self, all_ports, all_ships):
         # empty ship after docking
         return self.set_current_state(-1)
 
     # this method can be overriden when ships are working together
-    def stop_at_port(self, port, current_time, all_ports):
+    def stop_at_port(self, port, current_time, all_ports, all_ships):
         # method used as docking the ship to the port
         land_port = self.read_next_destination()
         if land_port != port:
             print("ERROR: ship: is on the wrong destination")
-            self.start_ship(current_time, all_ports)
+            self.start_ship(current_time, all_ports, all_ships)
             return -1
         #add to all wares distance between last stop and current
         distance = self.distance_between_destinations() #find last trip length
@@ -66,11 +66,11 @@ class Ship(Description,
         #stop the ship
         return self.set_current_state(0)
 
-    def start_ship(self, current_time, all_ports):
+    def start_ship(self, current_time, all_ports, all_ships):
         # method used to find next destination and start the journey there
         if self.number_of_wares()==0:
-            return self.set_ship_iddle(all_ports)
-        next_destination = self.get_next_destination_ship()
+            return self.set_ship_iddle(all_ports, all_ships)
+        next_destination = self.get_next_destination_ship(all_ports, all_ships)
         self.set_next_destination(next_destination)
         self.update_time_reach(current_time)
         return self.set_current_state(1)
