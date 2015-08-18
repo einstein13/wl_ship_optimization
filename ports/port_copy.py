@@ -14,14 +14,12 @@ class Port(Port_basic):
     """
     def load_wares_to_ship(self, ship, ships_going_to_port):
         if not ship.read_coordinates() == self.read_coordinates():
+            print("ERROR: port: ship in wrong location")
             return 0
         how_many = min(ship.space_left(), self.number_of_wares())
         wares_to_load = self.wares[:how_many]
-        for ware in wares_to_load: #set wares properties
-            ware.set_current_position(ship)
-        ship.add_wares_to_list(wares_to_load) #set ship ware list
-        self.delete_wares_from_list(wares_to_load) #delete from port list
-        self.update_calling_ships(ships_going_to_port)
+        # load prepared wares
+        self.load_prepared_ware_list_to_ship(ship, ships_going_to_port, wares_to_load)
         return len(wares_to_load)"""
 
     """
