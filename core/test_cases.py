@@ -229,3 +229,119 @@ def wares_test4(ware_class, ports_list, basic_distance):
         new_ware.set_time_begin(total_time_iterations*STEP_TIME)
         wares_list.append(new_ware)
     return wares_list
+
+# ===========
+#   TEST 5
+# ===========
+# first test not symmetrical
+# ports: 7 ports, long distances, "random" position
+# ships: two
+# wares: high speed, 1200 wares
+def ports_test5(port_class, basic_distance):
+    port_list=[]
+    for itr in range(7):
+        port_to_add=port_class()
+        if itr == 0:
+            port_to_add.set_coordinates([-basic_distance//2,basic_distance])# high production
+        elif itr == 1:
+            port_to_add.set_coordinates([-3*basic_distance//2,0])# high production
+        elif itr == 2:
+            port_to_add.set_coordinates([0, -basic_distance])# weak absorbtion
+        elif itr == 3:
+            port_to_add.set_coordinates([basic_distance-3,-basic_distance-3])# high absorption -> processing
+        elif itr == 4:
+            port_to_add.set_coordinates([basic_distance+3,-basic_distance+3])# high absorption -> processing
+        elif itr == 5:
+            port_to_add.set_coordinates([3*basic_distance//2,basic_distance])
+        elif itr == 6:
+            port_to_add.set_coordinates([0,0]) # central port
+        port_list.append(port_to_add)
+    return port_list
+
+def ships_test5(ship_class, ports_list):
+    ships_list=[]
+    for itr in range(2):
+        ship_test=ship_class()
+        port_near_ship=ports_list[random.randint(0,len(ports_list)-1)]
+        ship_test.set_coordinates(port_near_ship.read_coordinates())
+        ship_test.set_next_destination(port_near_ship)
+        ship_test.set_next_destination(port_near_ship)
+        ship_test.set_current_state(-1) # iddle
+        ships_list.append(ship_test)
+    return ships_list
+
+def wares_test5(ware_class, ports_list, basic_distance):
+    wares_list = []
+    total_time_iterations = 0
+    # generate "random" events
+    for itr1 in range(200):
+        # for STEP_TIME = 1.8
+        # approximate time = 0.6 hours (to start all wares)
+        total_time_iterations += 1
+        new_ware = ware_class()
+        port_check1 = random.randint(0,200)
+        port_check2 = random.randint(0,200)
+        tmp1 = 0
+        if port_check1 < 80: # 40%
+            tmp1 = 0
+            if port_check2 < 90: # 45%
+                tmp2 = 3
+            elif port_check2 < 180: # 45%
+                tmp2 = 4
+            else: # 10%
+                tmp2 = 5
+        elif port_check1 < 160: # 40%
+            tmp1 = 1
+            if port_check2 < 90: # 45%
+                tmp2 = 3
+            elif port_check2 < 180: # 45%
+                tmp2 = 4
+            elif port_check2 < 194: # 7%
+                tmp2 = 2
+            else: # 3%
+                tmp2 = 6
+        elif port_check1 < 175: # 7.5%
+            tmp1 = 3
+            if port_check2 < 40: # 20%
+                tmp2 = 0
+            elif port_check2 < 80: # 20%
+                tmp2 = 1
+            elif port_check2 < 120: # 20%
+                tmp2 = 2
+            elif port_check2 < 160: # 20%
+                tmp2 = 5
+            else: # 10%
+                tmp2 = 6
+        elif port_check1 < 190: # 7.5%
+            tmp1 = 4
+            if port_check2 < 40: # 20%
+                tmp2 = 0
+            elif port_check2 < 80: # 20%
+                tmp2 = 1
+            elif port_check2 < 120: # 20%
+                tmp2 = 2
+            elif port_check2 < 160: # 20%
+                tmp2 = 5
+            else: # 10%
+                tmp2 = 6
+        else: # 5%
+            tmp1 = 6
+            if port_check2 < 40: # 20%
+                tmp2 = 0
+            elif port_check2 < 80: # 20%
+                tmp2 = 1
+            elif port_check2 < 120: # 20%
+                tmp2 = 2
+            elif port_check2 < 140: # 10%
+                tmp2 = 3
+            elif port_check2 < 160: # 10%
+                tmp2 = 4
+            else: # 10%
+                tmp2 = 5
+        if tmp1 == tmp2:
+            print "ERROR"
+        new_ware.set_ports(ports_list[tmp1],ports_list[tmp2])
+        # then: time
+        new_ware.set_time_begin(total_time_iterations*STEP_TIME)
+        wares_list.append(new_ware)
+    return wares_list

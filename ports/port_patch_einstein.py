@@ -27,7 +27,7 @@ class Port(Port_basic):
                 empty_space -= 1
         # if no more space- end the method
         if empty_space==0 or self.number_of_wares()==0:
-            load_prepared_ware_list_to_ship(ship, ships_going_to_port, wares_to_load)
+            self.load_prepared_ware_list_to_ship(ship, ships_going_to_port, wares_to_load)
             return len(wares_to_load)
         # add wares that are not in locations
         for ware in self.wares:

@@ -41,6 +41,13 @@ class Experiment(ShipList,
         self.wares_list = test_cases.wares_test4(ware_class, self.ports_list, basic_distance)
         return 0
 
+    def test5_definition(self, ship_class, port_class, ware_class):
+        basic_distance = 80
+        self.ports_list = test_cases.ports_test5(port_class, basic_distance)       
+        self.ships_list = test_cases.ships_test5(ship_class, self.ports_list)
+        self.wares_list = test_cases.wares_test5(ware_class, self.ports_list, basic_distance)
+        return 0
+
     def set_test_case(self, ship_class, port_class, ware_class, case_number=1):
         random.seed(1) # have the same basic situation for all tests
         if case_number > POSSIBLE_TESTS_CASES:
@@ -57,6 +64,9 @@ class Experiment(ShipList,
             return True
         elif case_number==4:
             self.test4_definition(ship_class, port_class, ware_class)
+            return True
+        elif case_number==5:
+            self.test5_definition(ship_class, port_class, ware_class)
             return True
         return False
 

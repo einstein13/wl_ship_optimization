@@ -13,3 +13,16 @@ def delete_elements_from_list(elements, list):
     for num in numbers:
         del list[num]
     return list
+
+def get_nested_elements(list, nested_index=0):
+    result = []
+    for element in list:
+        result.append(element[nested_index])
+    return result
+
+def find_new_elements(old_list, new_list):
+    result=[]
+    for element in new_list:
+        if not element in old_list:
+            result.append(element)
+    return result

@@ -128,3 +128,17 @@ delete_elements_from_list(b,a)
 print(a)
 print(b)
 """
+
+"""
+print("================================")
+print("Test of nested lists processing:")
+print("================================")
+from core.lists import get_nested_elements
+a=[[1,2],[3,4],[5,6]]
+print(a)
+print("a[1]="+str(a[1]))
+print("a[:2]="+str(a[:2]))
+print("a[:2][0]="+str(a[:2][0]))
+print("first elements: "+str(get_nested_elements(a)))
+print("second elements: "+str(get_nested_elements(a,1)))
+"""

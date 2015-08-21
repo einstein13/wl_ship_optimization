@@ -46,3 +46,11 @@ def find_distance_between_ports(port1, port2):
     coordinates1 = port1.read_coordinates()
     coordinates2 = port2.read_coordinates()
     return find_distance(coordinates1, coordinates2)
+
+def calculate_route_length(list_of_ports):
+    if len(list_of_ports)<2:
+        return 0
+    length=0
+    for itr in range(len(list_of_ports)-1):
+        length += find_distance_between_ports(list_of_ports[itr], list_of_ports[itr+1])
+    return length
