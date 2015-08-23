@@ -34,8 +34,7 @@ class Coordinates():
         return find_distance(self.coordinates, point)
 
     def copy_Coordinates(self, destination_object):
-        destination_object.coordinates[0] = self.coordinates[0]
-        destination_object.coordinates[1] = self.coordinates[1]
+        destination_object.coordinates = list(self.coordinates)
         return destination_object
 
 class TimeDistanceStatistics():
