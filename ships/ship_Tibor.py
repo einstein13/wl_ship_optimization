@@ -50,9 +50,11 @@ class Ship(Ship_basic):
 
         # find best option
         best_port = None
-        best_score = 0
+        best_score = None
         for port,count in scoring_table.iteritems():
-            #print(port.serial,count)
+            if best_score is None:
+                best_port = port
+                best_score = count
             if count>best_score:
                 best_port=port
                 best_score=count

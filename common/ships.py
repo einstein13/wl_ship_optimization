@@ -28,7 +28,6 @@ class LastNextDestinations():
     def distance_between_destinations(self):
     	if self.last_destination == "":
     		return 0
-        print str(self.last_destination)+" "+str(self.next_destination)
     	return find_distance_between_ports(self.last_destination, self.next_destination)
 
     def update_time_reach(self, current_time=0.0):

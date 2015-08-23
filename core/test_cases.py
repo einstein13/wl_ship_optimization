@@ -339,7 +339,7 @@ def wares_test5(ware_class, ports_list, basic_distance):
             else: # 10%
                 tmp2 = 5
         if tmp1 == tmp2:
-            print "ERROR"
+            print("ERROR: wrong start and destination settings for ware")
         new_ware.set_ports(ports_list[tmp1],ports_list[tmp2])
         # then: time
         new_ware.set_time_begin(total_time_iterations*STEP_TIME)
