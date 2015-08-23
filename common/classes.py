@@ -119,6 +119,14 @@ class ListOfWares():
                 return False
         return True
 
+    def number_of_wares_reached_destinations(self):
+        # useful for main experiment
+        result = 0
+        for ware in self.wares_list:
+            if ware.read_destination_status():
+                result+=1
+        return result
+
     def find_new_wares(self, simulation_time):
         # useful for main experiment
         new_wares = []

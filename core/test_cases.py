@@ -274,7 +274,7 @@ def wares_test5(ware_class, ports_list, basic_distance):
     wares_list = []
     total_time_iterations = 0
     # generate "random" events
-    for itr1 in range(200):
+    for itr1 in range(1200):
         # for STEP_TIME = 1.8
         # approximate time = 0.6 hours (to start all wares)
         total_time_iterations += 1

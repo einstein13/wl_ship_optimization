@@ -140,5 +140,11 @@ class Experiment(ShipList,
             current_time = self.get_current_time()
             self.simulation_step(current_time, self.ports_list, self.ships_list)
             self.add_time_step()
+            if self.get_current_time()>40000:
+                print("END OF SIMULATION: time interrupt")
+                delivered=self.number_of_wares_reached_destinations()
+                all_wares=len(self.wares_list)
+                print(str(delivered)+"/"+str(all_wares)+" ("+str(100.0*delivered/all_wares)+"%) delivered")
+                break
         return True
 
