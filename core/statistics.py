@@ -21,6 +21,9 @@ DESCRIPTIONS = {
     "wares: min journey efficiency" : ["Min journey efficiency: ", "min_eff: ", "Minimum value of length_journey/minimum_possible_length for any ware"],
     "wares: mean journey efficiency" : ["Mean journey efficiency: ", "mean_eff: ", "Mean value of length_journey/minimum_possible_length for any ware"],
     "wares: max journey efficiency" : ["Max journey efficiency: ", "max_eff: ", "Maximum value of length_journey/minimum_possible_length for any ware"],
+    "wares: max time waiting" : ["Max time waiting: ", "max_wait: ", "Maximum time of waiting for ware in port to take by a ship"],
+    "wares: mean time waiting" : ["Mean time waiting: ", "mean_wait: ", "Mean time of waiting for ware in port to take by a ship"],
+    "wares: min time waiting" : ["Mean time waiting: ", "min_wait: ", "Minimum time of waiting for ware in port to take by a ship"],
     }
 
 KEYS = [
@@ -37,7 +40,10 @@ KEYS = [
     "wares: max time of existence",
     "wares: max journey efficiency",
     "wares: mean journey efficiency",
-    "wares: min journey efficiency"
+    "wares: min journey efficiency",
+    "wares: max time waiting",
+    "wares: mean time waiting",
+    "wares: min time waiting"
     ]
 
 class Statistics():
@@ -68,19 +74,19 @@ class Statistics():
         return 0
 
     def get_statistics_total_simulation_time(self, experiment):
-        return str(experiment.get_current_time())
+        return experiment.get_current_time()
 
     def get_statistics_mean_utilization(self, experiment):
-        return str(experiment.read_mean_ships_utilization())
+        return experiment.read_mean_ships_utilization()
 
     def get_statistics_max_utilization(self, experiment):
-        return str(experiment.read_max_wares_taken_ship())
+        return experiment.read_max_wares_taken_ship()
 
     def get_statistics_mean_wares_waiting(self, experiment):
-        return str(experiment.read_mean_wares_waiting_in_port())
+        return experiment.read_mean_wares_waiting_in_port()
 
     def get_statistics_max_wares_waiting(self, experiment):
-        return str(experiment.read_max_wares_waiting_port())
+        return experiment.read_max_wares_waiting_port()
 
     def get_statistics_min_distance_for_wares(self, experiment):
         wares_list = experiment.wares_list
@@ -89,14 +95,14 @@ class Statistics():
             tmp_variable = ware.read_route_length()
             if tmp_variable < variable:
                 variable = tmp_variable
-        return str(variable)
+        return variable
 
     def get_statistics_mean_distance_for_wares(self, experiment):
         wares_list = experiment.wares_list
         variable = 0
         for ware in wares_list:
             variable += ware.read_route_length()
-        return str(1.0*variable/len(wares_list))
+        return 1.0*variable/len(wares_list)
 
     def get_statistics_max_distance_for_wares(self, experiment):
         wares_list = experiment.wares_list
@@ -105,7 +111,7 @@ class Statistics():
             tmp_variable = ware.read_route_length()
             if tmp_variable > variable:
                 variable = tmp_variable
-        return str(variable)
+        return variable
 
     def get_statistics_min_time_for_wares(self, experiment):
         wares_list = experiment.wares_list
@@ -114,14 +120,14 @@ class Statistics():
             tmp_variable = ware.read_time_existence()
             if tmp_variable < variable:
                 variable = tmp_variable
-        return str(variable)
+        return variable
 
     def get_statistics_mean_time_for_wares(self, experiment):
         wares_list = experiment.wares_list
         variable = 0
         for ware in wares_list:
             variable += ware.read_time_existence()
-        return str(1.0*variable/len(wares_list))
+        return 1.0*variable/len(wares_list)
 
     def get_statistics_max_time_for_wares(self, experiment):
         wares_list = experiment.wares_list
@@ -130,7 +136,7 @@ class Statistics():
             tmp_variable = ware.read_time_existence()
             if tmp_variable > variable:
                 variable = tmp_variable
-        return str(variable)
+        return variable
 
     def get_statistics_max_efficiency_wares(self, experiment):
         wares_list = experiment.wares_list
@@ -139,14 +145,14 @@ class Statistics():
             tmp_variable = ware.calculate_route_efficiency()
             if tmp_variable < variable:
                 variable = tmp_variable
-        return str(variable)
+        return variable
 
     def get_statistics_mean_efficiency_wares(self, experiment):
         wares_list = experiment.wares_list
         variable = 0
         for ware in wares_list:
             variable += ware.calculate_route_efficiency()
-        return str(variable/len(wares_list))
+        return variable/len(wares_list)
 
     def get_statistics_min_efficiency_wares(self, experiment):
         wares_list = experiment.wares_list
@@ -155,40 +161,80 @@ class Statistics():
             tmp_variable = ware.calculate_route_efficiency()
             if tmp_variable > variable:
                 variable = tmp_variable
-        return str(variable)
+        return variable
+
+    def get_statistics_max_time_waiting_wares(self, experiment):
+        wares_list = experiment.wares_list
+        variable = wares_list[0].calculate_total_time_waiting()
+        for ware in wares_list:
+            tmp_variable = ware.calculate_total_time_waiting()
+            if tmp_variable > variable:
+                variable = tmp_variable
+        return variable
+
+    def get_statistics_mean_time_waiting_wares(self, experiment):
+        wares_list = experiment.wares_list
+        variable = 0
+        total_wares = len(wares_list)
+        for ware in wares_list:
+            tmp_variable = ware.calculate_total_time_waiting()
+            if tmp_variable == -1: # add only valid records
+                total_wares -= 1
+                continue
+            variable += tmp_variable
+        return 1.0*variable/total_wares
+
+    def get_statistics_min_time_waiting_wares(self, experiment):
+        wares_list = experiment.wares_list
+        variable = wares_list[0].calculate_total_time_waiting()
+        for ware in wares_list:
+            tmp_variable = ware.calculate_total_time_waiting()
+            if tmp_variable<variable and tmp_variable!=-1:
+                variable = tmp_variable
+        return variable
+
+    def calculate_one_statistics(self, experiment, statistics_type):
+        if statistics_type == KEYS[0]:
+            return self.get_statistics_total_simulation_time(experiment)
+        elif statistics_type == KEYS[1]:
+            return self.get_statistics_mean_utilization(experiment)
+        elif statistics_type == KEYS[2]:
+            return self.get_statistics_max_utilization(experiment)
+        elif statistics_type == KEYS[3]:
+            return self.get_statistics_mean_wares_waiting(experiment)
+        elif statistics_type == KEYS[4]:
+            return self.get_statistics_max_wares_waiting(experiment)
+        elif statistics_type == KEYS[5]:
+            return self.get_statistics_min_distance_for_wares(experiment)
+        elif statistics_type == KEYS[6]:
+            return self.get_statistics_mean_distance_for_wares(experiment)
+        elif statistics_type == KEYS[7]:
+            return self.get_statistics_max_distance_for_wares(experiment)
+        elif statistics_type == KEYS[8]:
+            return self.get_statistics_min_time_for_wares(experiment)
+        elif statistics_type == KEYS[9]:
+            return self.get_statistics_mean_time_for_wares(experiment)
+        elif statistics_type == KEYS[10]:
+            return self.get_statistics_max_time_for_wares(experiment)
+        elif statistics_type == KEYS[11]:
+            return self.get_statistics_max_efficiency_wares(experiment)
+        elif statistics_type == KEYS[12]:
+            return self.get_statistics_mean_efficiency_wares(experiment)
+        elif statistics_type == KEYS[13]:
+            return self.get_statistics_min_efficiency_wares(experiment)
+        elif statistics_type == KEYS[14]:
+            return self.get_statistics_max_time_waiting_wares(experiment)
+        elif statistics_type == KEYS[15]:
+            return self.get_statistics_mean_time_waiting_wares(experiment)
+        elif statistics_type == KEYS[16]:
+            return self.get_statistics_min_time_waiting_wares(experiment)
+        return None
 
     def get_one_statistics(self, experiment, statistics_type):
         if statistics_type in STATISTICS_TO_DO:
             # basic information
             text_to_return = self.read_descritpion(statistics_type)
-            if statistics_type == KEYS[0]:
-                text_to_return += self.get_statistics_total_simulation_time(experiment)
-            elif statistics_type == KEYS[1]:
-                text_to_return += self.get_statistics_mean_utilization(experiment)
-            elif statistics_type == KEYS[2]:
-                text_to_return += self.get_statistics_max_utilization(experiment)
-            elif statistics_type == KEYS[3]:
-                text_to_return += self.get_statistics_mean_wares_waiting(experiment)
-            elif statistics_type == KEYS[4]:
-                text_to_return += self.get_statistics_max_wares_waiting(experiment)
-            elif statistics_type == KEYS[5]:
-                text_to_return += self.get_statistics_min_distance_for_wares(experiment)
-            elif statistics_type == KEYS[6]:
-                text_to_return += self.get_statistics_mean_distance_for_wares(experiment)
-            elif statistics_type == KEYS[7]:
-                text_to_return += self.get_statistics_max_distance_for_wares(experiment)
-            elif statistics_type == KEYS[8]:
-                text_to_return += self.get_statistics_min_time_for_wares(experiment)
-            elif statistics_type == KEYS[9]:
-                text_to_return += self.get_statistics_mean_time_for_wares(experiment)
-            elif statistics_type == KEYS[10]:
-                text_to_return += self.get_statistics_max_time_for_wares(experiment)
-            elif statistics_type == KEYS[11]:
-                text_to_return += self.get_statistics_max_efficiency_wares(experiment)
-            elif statistics_type == KEYS[12]:
-                text_to_return += self.get_statistics_mean_efficiency_wares(experiment)
-            elif statistics_type == KEYS[13]:
-                text_to_return += self.get_statistics_min_efficiency_wares(experiment)
+            text_to_return += str(self.calculate_one_statistics(experiment, statistics_type))
             # end of information
             if STATISTICS_DISPLAYS["separate lines"]:
                 text_to_return += "\n"
@@ -212,10 +258,6 @@ class Statistics():
         text = "------\n"
         for key in KEYS:
             text += self.get_one_statistics(experiment, key)
-        
-
-
-
         print(text)
         return 0
 

@@ -66,6 +66,9 @@ STATISTICS_TO_DO = (
     #"wares: max journey efficiency",
     "wares: mean journey efficiency",
     "wares: min journey efficiency",
+    "wares: max time waiting",
+    "wares: mean time waiting",
+    "wares: min time waiting",
     )
 
 # stats display

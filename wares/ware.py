@@ -23,6 +23,12 @@ class Ware(DestinationPoints,
         print("ERROR: ware: not able to calculate efficiency")
         return 0
 
+    def calculate_total_time_waiting(self):
+        # method used by statistics
+        if not self.destination_reached:
+            return -1
+        return self.t_end - self.t_start - self.total_time_traveling
+
     def copy(self):
         new_ware=ware()
         #DestinationPoints
