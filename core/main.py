@@ -136,15 +136,25 @@ class Experiment(ShipList,
         self.set_test_case(ship_class, port_class, ware_class, test_case)
         self.reset_timer()
         current_time=0
+        # delivery break condition varaiables
+        old_delivered=0
+        new_delivered=0
+        old_time=0
         while not self.all_wares_reached_destinations():
             current_time = self.get_current_time()
             self.simulation_step(current_time, self.ports_list, self.ships_list)
             self.add_time_step()
-            if self.get_current_time()>40000:
-                print("END OF SIMULATION: time interrupt")
-                delivered=self.number_of_wares_reached_destinations()
-                all_wares=len(self.wares_list)
-                print(str(delivered)+"/"+str(all_wares)+" ("+str(100.0*delivered/all_wares)+"%) delivered")
-                break
+            # break if delivering stopped
+            if self.get_current_time()>20000+old_time:
+                print("WARNING: main: time interrupt (check delivery)")
+                new_delivered=self.number_of_wares_reached_destinations()
+                if new_delivered==old_delivered:
+                    all_wares=len(self.wares_list)
+                    print("ERROR: main: wares not delivered")
+                    print(str(new_delivered)+"/"+str(all_wares)+" ("+str(100.0*new_delivered/all_wares)+"%) delivered till now")
+                    break
+                # if some wares are delivered- don't break! Just change conditions to newer state
+                old_delivered=new_delivered
+                old_time=self.get_current_time()
         return True
 
