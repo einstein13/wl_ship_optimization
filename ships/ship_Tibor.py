@@ -1,6 +1,7 @@
 from core.lists import find_first
 from core.logic import find_distance_between_ports
 from ships.ship_basic import Ship as Ship_basic
+from settings import WARES_MAX
 
 class Ship(Ship_basic):
 
@@ -24,26 +25,30 @@ class Ship(Ship_basic):
         scoring_table[wares_list[0].destination_port] = oldest_ware_score-1
 
         # score 1 for all wares
+
         for ware in wares_list:
             if scoring_table.has_key(ware.destination_port):
                 scoring_table[ware.destination_port] += 1
             else:
                 scoring_table[ware.destination_port] = 1
 
-        # We need to identify ports where no ship is heading and add score based on waiting wares
-        for port in all_ports:
-            if not port==self.next_destination and len(port.wares)>0:
-                any_ship_heading_here=False
-                for ship in all_ships:
-                    if ship.next_destination==port:
-                        any_ship_heading_here=True
-                        break
+        # PATCH: if 80% of capacity is reached, only wares onboard are considered
+        if self.number_of_wares()*5//4 < WARES_MAX:
+            # We need to identify ports where no ship is heading and add score based on waiting wares
+            for port in all_ports:
+                if not port==self.next_destination and len(port.wares)>0:
+                    any_ship_heading_here=False
+                    for ship in all_ships:
+                        if ship.next_destination==port:
+                            any_ship_heading_here=True
+                            break
 
-                if not any_ship_heading_here:
-                    if scoring_table.has_key(port):
-                        scoring_table[port]+=port.number_of_wares()
-                    else:
-                        scoring_table[port]=port.number_of_wares()
+                    if not any_ship_heading_here:
+                        if scoring_table.has_key(port):
+                            scoring_table[port]+=port.number_of_wares()
+                        else:
+                            scoring_table[port]=port.number_of_wares()
+
         # adding score if based on distance for ports we consider to visit
         for port,count in scoring_table.iteritems():
             scoring_table[port]+=(5-find_distance_between_ports(port,self.next_destination)/20)*distance_weight
@@ -58,7 +63,7 @@ class Ship(Ship_basic):
             if count>best_score:
                 best_port=port
                 best_score=count
-        
+
         return best_port
 
     # THIS METHOD CAN BE MUCH BETTER
