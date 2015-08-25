@@ -12,6 +12,7 @@ class Port(Description,
 
     def __init__(self):
         # Description
+        self.description_table = "Base"
         self.description_short = "Very basic port class."
         self.description_full = self.description_short+" Not very useful to play with, but can be a basic for another classes."
         # Coordinates

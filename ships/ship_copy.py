@@ -6,6 +6,7 @@ class Ship(Ship_basic):
     def __init__(self):
         super(Ship, self).__init__()
         # Description
+        self.description_table = "New1"
         self.description_short = "New short description"
         self.description_full = "New long descpription"
         return None

@@ -8,6 +8,7 @@ class Ship(Ship_basic):
     def __init__(self):
         super(Ship, self).__init__()
         # Description
+        self.description_table = "Tibor1"
         self.description_short = "Tibor's algorithm for ship"
         self.description_full = "Tibor's algorithm for ships. Based on his python project. This algorithm was used in Widelands for build 19."
         return None

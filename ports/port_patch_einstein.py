@@ -7,6 +7,7 @@ class Port(Port_basic):
     def __init__(self):
         super(Port, self).__init__()
         # Description
+        self.description_table = "einst1"
         self.description_short = "First einstein's patch"
         self.description_full = "Simple einstein's patch. Wares going to existing location goes first. Based on explanation here: https://wl.widelands.org/forum/topic/1762/?page=5#post-14225."
         return None

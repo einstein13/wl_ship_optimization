@@ -31,7 +31,7 @@ ONE_TEST = (1,1)
 #    [1, 1, [1,2,3]] (first port and ship classes for test cases 1, 2, 3)
 #    [[1,2],[1,2,3], 1] (all pairs port-ship for 1 & 2 ports and 1, 2 & 3 ships, all for first test case)
 TEST_CASES = [
-    [-1, -1, 5]
+    [-1, -1, [1,2]]
     ]
 
 # number of wares that can hold a ship
@@ -55,8 +55,8 @@ STATISTICS_TO_DO = (
     "general: total simulation time",
     "ships: mean utilization",
     #"ships: max utilization",
-    #"ports: mean wares waiting",
-    #"ports: max wares waiting",
+    "ports: mean wares waiting",
+    "ports: max wares waiting",
     #"wares: min distance of journey",
     "wares: mean distance of journey",
     #"wares: max distance of journey",
@@ -77,6 +77,8 @@ STATISTICS_DISPLAYS = {
     "short class descriptions" : True,
     "separate lines" : True,
     "help text" : False,
+    "show statistics for experiments": False, #for execute_all.py only
+    "show markdown tables": True, #for execute_all.py only
     }
 
 # stats optimization (used for execute_all.py)

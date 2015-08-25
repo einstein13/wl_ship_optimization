@@ -5,7 +5,8 @@ from core.logic import find_distance
 from core.lists import delete_elements_from_list
 
 class Description():
-    description_short = ""
+    description_table = "" # description used in table-form statistics
+    description_short = "" # description used in experiment execution
     description_full = ""
 
     def read_full_description(self):

@@ -7,6 +7,7 @@ class Port(Port_basic):
     def __init__(self):
         super(Port, self).__init__()
         # Description
+        self.description_table = "New"
         self.description_short = "New short description"
         self.description_full = "New long descpription"
         return None
