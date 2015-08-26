@@ -15,6 +15,9 @@ class Description():
     def read_short_description(self):
         return self.description_short
 
+    def read_table_description(self):
+        return self.description_table
+
     def copy_Description(self, destination_object):
         destination_object.description_short = self.description_short
         destination_object.description_full = self.description_full

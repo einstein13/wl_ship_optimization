@@ -2,6 +2,7 @@
 from settings import TEST_CASES, SHIPS, PORTS, POSSIBLE_TESTS_CASES, STATISTICS_DISPLAYS, STATISTICS_TO_DO
 from core.one_experiment import execute_one_experiment
 from core.statistics import Statistics, DESCRIPTIONS
+from core.modules import import_ship_class, import_port_class
 
 class MultiexperimentsStatistics(Statistics):
     statistics_to_save=[]
@@ -41,27 +42,30 @@ class MultiexperimentsStatistics(Statistics):
         ship_range = len(table[0])
         text = "| P\\S |"
         for itrS in range(ship_range):
-            text += " "+str(itrS)+" |"
+            ship_class = import_ship_class(itrS+1)
+            ship_instance = ship_class()
+            text += " "+ship_instance.read_table_description()+" |"
         text += "\n|----|"
         for itrS in range(ship_range):
             text += "----|"
         for itrP in range(port_range):
             for itrS in range(ship_range+1):
                 if itrS==0:
-                    text += "\n| "+str(itrP)+" |"
+                    port_class = import_port_class(itrP+1)
+                    port_instance = port_class()
+                    text += "\n| "+port_instance.read_table_description()+" |"
                 else:
                     value = table[itrP][itrS-1]
                     text += " "+str(self.round_value(value))+" |"
-        print(text)
+        print(text+"\n")
 
     def print_tables(self):
         for itr in range(len(STATISTICS_TO_DO)):
             stats_key = STATISTICS_TO_DO[itr]
             stats_name = DESCRIPTIONS[stats_key][2]
             table_to_print = self.statistics_to_save[itr]
-            print(stats_name)
+            print("\n"+str(stats_name)+"\n")
             self.print_one_table(table_to_print)
-            print("")
 
 
 class TestsList():
@@ -127,7 +131,6 @@ class TestsList():
 
 def execute_all():
     STATISTICS_DISPLAYS["help text"]=False
-    print STATISTICS_TO_DO
     test_list=TestsList()
     all_tests=test_list.create_list_of_tests()
     for itr in range(len(all_tests)):
