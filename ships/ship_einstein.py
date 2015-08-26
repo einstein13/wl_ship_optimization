@@ -56,6 +56,9 @@ class RouteList():
                     if self.route_list[point2][1]==0:
                         break
                     point2 += 1 # incrememnt point2 in second while
+                #PATCH for wrong destinations add/remove method
+                if point2 == len(self.route_list):
+                    return False
                 # copy lists of ports between point1 and point2
                 for itr in range(point1, point2+1):
                     old_path.append(self.route_list[itr][0])
@@ -101,11 +104,13 @@ class Ship(Ship_basic, RouteList):
         destinations_route = self.get_all_destinations_route()
         destinations_wares = self.get_all_destinations_wares()
         # list of ports that are left behind - delete them from list
-        #old_destinations = find_new_elements(destinations_wares, destinations_route)
-        #self.delete_old_destinations(old_destinations)
-        # next line is a patch. Working, but not perfect. Algorithm needs some checking
-        if not self.route_list == [] and not self.get_next_destination_route() in destinations_wares:
-            del self.route_list[0]
+        old_destinations = find_new_elements(destinations_wares, destinations_route)
+        self.delete_old_destinations(old_destinations)
+        #---investigation needed: why the ship get to the wrong destination?
+        #---why the wares are empty and the destinations aren't?
+        #--- next line is a patch. Working, but not perfect. Algorithm needs some checking
+        #---if not self.route_list == [] and not self.get_next_destination_route() in destinations_wares:
+        #---    del self.route_list[0]
         # list of ports that are new - add them in 
         new_destinations = find_new_elements(destinations_route, destinations_wares)
         self.add_new_ports(new_destinations)

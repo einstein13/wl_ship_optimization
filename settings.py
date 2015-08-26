@@ -20,7 +20,7 @@ POSSIBLE_TESTS_CASES = 5
 # settings for one test:
 # (port_class_number, ship_class_number)
 # 1- first, 2-second, ...
-ONE_TEST = (1,1)
+ONE_TEST = (1,3)
 
 # test cases to do with execute_all command
 # lists are [port_class, ship_class, test_case]
@@ -63,12 +63,12 @@ STATISTICS_TO_DO = (
     #"wares: min time of existence",
     #"wares: mean time of existence",
     #"wares: max time of existence",
-    #"wares: max journey efficiency",
+    "wares: max journey efficiency",
     "wares: mean journey efficiency",
     "wares: min journey efficiency",
     "wares: max time waiting",
     "wares: mean time waiting",
-    "wares: min time waiting",
+    #"wares: min time waiting",
     )
 
 # stats display
