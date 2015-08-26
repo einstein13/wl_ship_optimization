@@ -30,6 +30,10 @@ class MultiexperimentsStatistics(Statistics):
         return base
 
     def round_value(self, value):
+        if value=="":
+            return " - "
+        if type(value) is int:
+            return value
         decimals = 0.0001
         while decimals < abs(value):
             decimals *= 10

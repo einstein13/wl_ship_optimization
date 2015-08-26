@@ -21,9 +21,9 @@ DESCRIPTIONS = {
     "wares: min journey efficiency" : ["Min journey efficiency: ", "min_eff: ", "Minimum value of length_journey/minimum_possible_length for any ware"],
     "wares: mean journey efficiency" : ["Mean journey efficiency: ", "mean_eff: ", "Mean value of length_journey/minimum_possible_length for any ware"],
     "wares: max journey efficiency" : ["Max journey efficiency: ", "max_eff: ", "Maximum value of length_journey/minimum_possible_length for any ware"],
-    "wares: max time waiting" : ["Max time waiting: ", "max_wait: ", "Maximum time of waiting for ware in port to take by a ship"],
-    "wares: mean time waiting" : ["Mean time waiting: ", "mean_wait: ", "Mean time of waiting for ware in port to take by a ship"],
-    "wares: min time waiting" : ["Mean time waiting: ", "min_wait: ", "Minimum time of waiting for ware in port to take by a ship"],
+    "wares: max time waiting" : ["Max time waiting: ", "max_wait: ", "Maximum time waiting for ware in port to take by a ship"],
+    "wares: mean time waiting" : ["Mean time waiting: ", "mean_wait: ", "Mean time waiting for ware in port to take by a ship"],
+    "wares: min time waiting" : ["Min time waiting: ", "min_wait: ", "Minimum time waiting for ware in port to take by a ship"],
     }
 
 KEYS = [
