@@ -6,7 +6,8 @@ here goes settings used in whole project
 # please add only file names in ships folder, no ".py" needed
 SHIPS = ['ship_basic',
     'ship_Tibor',
-    'ship_einstein']
+    'ship_einstein_01',
+    'ship_einstein_02']
 
 # ports classes that can be used in the experiment
 # please add only file names in ships folder, no ".py" needed

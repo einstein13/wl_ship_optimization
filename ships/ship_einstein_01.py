@@ -96,8 +96,8 @@ class Ship(Ship_basic, RouteList):
         super(Ship, self).__init__()
         # Description
         self.description_table = "einst1"
-        self.description_short = "Einstein's ships algorithm"
-        self.description_full = "Einstein's ships aglorithm. Main explanation file: http://student.agh.edu.pl/~rak/widelands/files/ShipsOptimalization/Ships1.2.pdf"
+        self.description_short = "Einstein's ships algorithm (version 1.01)"
+        self.description_full = "Einstein's ships aglorithm (version 1.01). Main explanation file: http://student.agh.edu.pl/~rak/widelands/files/ShipsOptimalization/Ships1.2.pdf"
         return None
 
     def update_destinations(self):
