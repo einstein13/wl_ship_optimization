@@ -26,3 +26,17 @@ def find_new_elements(old_list, new_list):
         if not element in old_list:
             result.append(element)
     return result
+
+def debug_list(list_to_debug):
+    result = "["
+    for element in list_to_debug:
+        result += element.debug()+" "
+    result += " ]"
+    return result
+
+def debug_list_all(list_to_debug):
+    result = "["
+    for element in list_to_debug:
+        result += element.debug_all()+" "
+    result += " ]"
+    return result

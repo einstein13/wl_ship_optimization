@@ -1,5 +1,6 @@
 from settings import STEP_TIME
 from common.classes import ListOfWares
+from core.lists import debug_list, debug_list_all
 
 class ShipList():
     ships_list=[]
@@ -32,6 +33,12 @@ class ShipList():
                 selected_ships.append(ship)
         return selected_ships
 
+    def ships_list_debug(self):
+        return debug_list(self.ships_list)
+
+    def ships_list_debug_all(self):
+        return debug_list_all(self.ships_list)
+
 class PortList():
     ports_list=[]
 
@@ -47,6 +54,9 @@ class PortList():
             if port.read_coordinates() == coordinates:
                 return port
         return 0
+
+    def ports_list_debug(self):
+        return debug_list(self.ports_list)
 
 class SimulationTime():
     simulation_steps = 0

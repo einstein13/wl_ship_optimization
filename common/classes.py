@@ -2,12 +2,16 @@
 
 from settings import VELOCITY
 from core.logic import find_distance
-from core.lists import delete_elements_from_list
+from core.lists import delete_elements_from_list, debug_list, debug_list_all
 
 class Description():
     description_table = "" # description used in table-form statistics
     description_short = "" # description used in experiment execution
     description_full = ""
+    description_debug = "" # description used while debugging, simpliest possible
+
+    def debug(self):
+        return self.description_debug
 
     def read_full_description(self):
         return self.description_full
@@ -148,3 +152,9 @@ class ListOfWares():
                 position = find_first(ware,all_wares)
                 destination_object.wares.append(all_wares[position])
         return destination_object
+
+    def wares_list_debug(self):
+        return debug_list(self.wares)
+
+    def wares_list_debug_all(self):
+        return debug_list_all(self.wares)

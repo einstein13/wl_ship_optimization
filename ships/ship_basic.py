@@ -12,6 +12,7 @@ class Ship(Description,
 
     def __init__(self):
         # Description
+        self.description_debug = "Ship_"
         self.description_table = "Base"
         self.description_short = "Very basic ship class."
         self.description_full = self.description_short+" Not very useful to play with, but can be a basic for another classes."
@@ -100,6 +101,5 @@ class Ship(Description,
         self.copy_ListOfWares(new_ship, all_wares)
         return new_ship
 
-
-
-
+    def debug_all(self):
+        return "("+self.description_debug+" "+self.destination_port.debug+")"

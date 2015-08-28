@@ -13,6 +13,7 @@ def ports_test1(port_class, basic_distance):
     for itr in range(-1,2):
         port_to_add=port_class()
         port_to_add.set_coordinates([basic_distance*itr,0])
+        port_to_add.description_debug+=str(itr)
         port_list.append(port_to_add)
     return port_list
 
@@ -24,6 +25,7 @@ def ships_test1(ship_class, ports_list):
     ship_test.set_next_destination(port_near_ship)
     ship_test.set_next_destination(port_near_ship)
     ship_test.set_current_state(-1) # iddle
+    ship_test.description_debug+="1"
     ships_list.append(ship_test)
     return ships_list
 
@@ -51,6 +53,7 @@ def wares_test1(ware_class, ports_list, basic_distance):
         # then: time
         total_time_iterations += random.randint(basic_distance-max_delta, basic_distance+max_delta)
         new_ware.set_time_begin(total_time_iterations*STEP_TIME)
+        new_ware.description_debug+=str(itr+1)
         wares_list.append(new_ware)
     return wares_list
 
@@ -71,6 +74,7 @@ def ports_test2(port_class, basic_distance):
             port_to_add.set_coordinates([basic_distance//2,basic_distance])
         elif itr == 2:
             port_to_add.set_coordinates([0,0])
+        port_to_add.description_debug+=str(itr+1)
         port_list.append(port_to_add)
     return port_list
 
@@ -82,6 +86,7 @@ def ships_test2(ship_class, ports_list):
     ship_test.set_next_destination(port_near_ship)
     ship_test.set_next_destination(port_near_ship)
     ship_test.set_current_state(-1) # iddle
+    ship_test.description_debug+="1"
     ships_list.append(ship_test)
     return ships_list
 
@@ -109,6 +114,7 @@ def wares_test2(ware_class, ports_list, basic_distance):
         # then: time
         total_time_iterations += random.randint(basic_distance//4-max_delta, basic_distance//4+max_delta)
         new_ware.set_time_begin(total_time_iterations*STEP_TIME)
+        new_ware.description_debug+=str(itr+1)
         wares_list.append(new_ware)
     return wares_list
 
@@ -134,6 +140,7 @@ def ports_test3(port_class, basic_distance):
             port_to_add.set_coordinates([basic_distance//2-basic_distance,-basic_distance])
         elif itr == 5:
             port_to_add.set_coordinates([basic_distance//2,-basic_distance])
+        port_to_add.description_debug+=str(itr+1)
         port_list.append(port_to_add)
     return port_list
 
@@ -146,6 +153,7 @@ def ships_test3(ship_class, ports_list):
         ship_test.set_next_destination(port_near_ship)
         ship_test.set_next_destination(port_near_ship)
         ship_test.set_current_state(-1) # iddle
+        ship_test.description_debug+=str(itr+1)
         ships_list.append(ship_test)
     return ships_list
 
@@ -170,6 +178,7 @@ def wares_test3(ware_class, ports_list, basic_distance):
         new_ware.set_ports(ports_list[tmp1],ports_list[tmp2])
         # then: time
         new_ware.set_time_begin(total_time_iterations*STEP_TIME)
+        new_ware.description_debug+=str(itr+1)
         wares_list.append(new_ware)
     return wares_list
 
@@ -191,6 +200,7 @@ def ports_test4(port_class, basic_distance):
             port_to_add.set_coordinates([-basic_distance,10])
         elif itr == 3:
             port_to_add.set_coordinates([-basic_distance,0])
+        port_to_add.description_debug+=str(itr+1)
         port_list.append(port_to_add)
     return port_list
 
@@ -203,6 +213,7 @@ def ships_test4(ship_class, ports_list):
         ship_test.set_next_destination(port_near_ship)
         ship_test.set_next_destination(port_near_ship)
         ship_test.set_current_state(-1) # iddle
+        ship_test.description_debug+=str(itr+1)
         ships_list.append(ship_test)
     return ships_list
 
@@ -227,6 +238,7 @@ def wares_test4(ware_class, ports_list, basic_distance):
         new_ware.set_ports(ports_list[tmp1],ports_list[tmp2])
         # then: time
         new_ware.set_time_begin(total_time_iterations*STEP_TIME)
+        new_ware.description_debug+=str(itr+1)
         wares_list.append(new_ware)
     return wares_list
 
@@ -255,6 +267,7 @@ def ports_test5(port_class, basic_distance):
             port_to_add.set_coordinates([3*basic_distance//2,basic_distance])
         elif itr == 6:
             port_to_add.set_coordinates([0,0]) # central port
+        port_to_add.description_debug+=str(itr+1)
         port_list.append(port_to_add)
     return port_list
 
@@ -267,6 +280,7 @@ def ships_test5(ship_class, ports_list):
         ship_test.set_next_destination(port_near_ship)
         ship_test.set_next_destination(port_near_ship)
         ship_test.set_current_state(-1) # iddle
+        ship_test.description_debug+=str(itr+1)
         ships_list.append(ship_test)
     return ships_list
 
@@ -343,5 +357,6 @@ def wares_test5(ware_class, ports_list, basic_distance):
         new_ware.set_ports(ports_list[tmp1],ports_list[tmp2])
         # then: time
         new_ware.set_time_begin(total_time_iterations*STEP_TIME)
+        new_ware.description_debug+=str(itr+1)
         wares_list.append(new_ware)
     return wares_list

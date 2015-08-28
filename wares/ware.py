@@ -7,6 +7,13 @@ class Ware(DestinationPoints,
         WareState,
         TimeDistanceStatistics):
 
+    description_debug = "Ware_"
+
+    def debug(self):
+        return self.description_debug
+    def debug_all(self):
+        return "("+self.description_debug+" "+self.destination_port.debug()+")"
+
     def update_ware_state(self, current_time):
         if self.current_position == self.destination_port:
             self.set_time_end(current_time)
