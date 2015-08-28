@@ -28,15 +28,15 @@ def find_new_elements(old_list, new_list):
     return result
 
 def debug_list(list_to_debug):
-    result = "["
+    result = "[ "
     for element in list_to_debug:
         result += element.debug()+" "
-    result += " ]"
+    result += "]"
     return result
 
 def debug_list_all(list_to_debug):
-    result = "["
+    result = "[ "
     for element in list_to_debug:
         result += element.debug_all()+" "
-    result += " ]"
+    result += "]"
     return result

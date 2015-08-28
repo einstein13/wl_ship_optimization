@@ -102,4 +102,4 @@ class Ship(Description,
         return new_ship
 
     def debug_all(self):
-        return "("+self.description_debug+" "+self.destination_port.debug+")"
+        return "("+self.description_debug+" "+self.next_destination.debug()+")"

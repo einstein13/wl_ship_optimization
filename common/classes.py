@@ -122,7 +122,7 @@ class ListOfWares():
 
     def all_wares_reached_destinations(self):
         # useful for main experiment
-        for ware in self.wares_list:
+        for ware in self.wares:
             if not ware.read_destination_status():
                 return False
         return True
@@ -130,7 +130,7 @@ class ListOfWares():
     def number_of_wares_reached_destinations(self):
         # useful for main experiment
         result = 0
-        for ware in self.wares_list:
+        for ware in self.wares:
             if ware.read_destination_status():
                 result+=1
         return result
@@ -138,7 +138,7 @@ class ListOfWares():
     def find_new_wares(self, simulation_time):
         # useful for main experiment
         new_wares = []
-        for ware in self.wares_list:
+        for ware in self.wares:
             if ware.read_current_position()=="" and ware.read_when_begin_exist()<=simulation_time:
                 new_wares.append(ware)
         return new_wares

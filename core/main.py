@@ -17,35 +17,35 @@ class Experiment(ShipList,
         basic_distance = 25
         self.ports_list = test_cases.ports_test1(port_class, basic_distance)       
         self.ships_list = test_cases.ships_test1(ship_class, self.ports_list)
-        self.wares_list = test_cases.wares_test1(ware_class, self.ports_list, basic_distance)
+        self.wares = test_cases.wares_test1(ware_class, self.ports_list, basic_distance)
         return 0
 
     def test2_definition(self, ship_class, port_class, ware_class):
         basic_distance = 20
         self.ports_list = test_cases.ports_test2(port_class, basic_distance)       
         self.ships_list = test_cases.ships_test2(ship_class, self.ports_list)
-        self.wares_list = test_cases.wares_test2(ware_class, self.ports_list, basic_distance)
+        self.wares = test_cases.wares_test2(ware_class, self.ports_list, basic_distance)
         return 0
 
     def test3_definition(self, ship_class, port_class, ware_class):
         basic_distance = 20
         self.ports_list = test_cases.ports_test3(port_class, basic_distance)       
         self.ships_list = test_cases.ships_test3(ship_class, self.ports_list)
-        self.wares_list = test_cases.wares_test3(ware_class, self.ports_list, basic_distance)
+        self.wares = test_cases.wares_test3(ware_class, self.ports_list, basic_distance)
         return 0
 
     def test4_definition(self, ship_class, port_class, ware_class):
         basic_distance = 40
         self.ports_list = test_cases.ports_test4(port_class, basic_distance)       
         self.ships_list = test_cases.ships_test4(ship_class, self.ports_list)
-        self.wares_list = test_cases.wares_test4(ware_class, self.ports_list, basic_distance)
+        self.wares = test_cases.wares_test4(ware_class, self.ports_list, basic_distance)
         return 0
 
     def test5_definition(self, ship_class, port_class, ware_class):
         basic_distance = 80
         self.ports_list = test_cases.ports_test5(port_class, basic_distance)       
         self.ships_list = test_cases.ships_test5(ship_class, self.ports_list)
-        self.wares_list = test_cases.wares_test5(ware_class, self.ports_list, basic_distance)
+        self.wares = test_cases.wares_test5(ware_class, self.ports_list, basic_distance)
         return 0
 
     def set_test_case(self, ship_class, port_class, ware_class, case_number=1):

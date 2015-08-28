@@ -89,7 +89,7 @@ class Statistics():
         return experiment.read_max_wares_waiting_port()
 
     def get_statistics_min_distance_for_wares(self, experiment):
-        wares_list = experiment.wares_list
+        wares_list = experiment.wares
         variable = wares_list[0].read_route_length()
         for ware in wares_list:
             tmp_variable = ware.read_route_length()
@@ -98,14 +98,14 @@ class Statistics():
         return variable
 
     def get_statistics_mean_distance_for_wares(self, experiment):
-        wares_list = experiment.wares_list
+        wares_list = experiment.wares
         variable = 0
         for ware in wares_list:
             variable += ware.read_route_length()
         return 1.0*variable/len(wares_list)
 
     def get_statistics_max_distance_for_wares(self, experiment):
-        wares_list = experiment.wares_list
+        wares_list = experiment.wares
         variable = wares_list[0].read_route_length()
         for ware in wares_list:
             tmp_variable = ware.read_route_length()
@@ -114,7 +114,7 @@ class Statistics():
         return variable
 
     def get_statistics_min_time_for_wares(self, experiment):
-        wares_list = experiment.wares_list
+        wares_list = experiment.wares
         variable = wares_list[0].read_time_existence()
         for ware in wares_list:
             tmp_variable = ware.read_time_existence()
@@ -123,14 +123,14 @@ class Statistics():
         return variable
 
     def get_statistics_mean_time_for_wares(self, experiment):
-        wares_list = experiment.wares_list
+        wares_list = experiment.wares
         variable = 0
         for ware in wares_list:
             variable += ware.read_time_existence()
         return 1.0*variable/len(wares_list)
 
     def get_statistics_max_time_for_wares(self, experiment):
-        wares_list = experiment.wares_list
+        wares_list = experiment.wares
         variable = wares_list[0].read_time_existence()
         for ware in wares_list:
             tmp_variable = ware.read_time_existence()
@@ -139,7 +139,7 @@ class Statistics():
         return variable
 
     def get_statistics_max_efficiency_wares(self, experiment):
-        wares_list = experiment.wares_list
+        wares_list = experiment.wares
         variable = wares_list[0].calculate_route_efficiency()
         for ware in wares_list:
             tmp_variable = ware.calculate_route_efficiency()
@@ -148,14 +148,14 @@ class Statistics():
         return variable
 
     def get_statistics_mean_efficiency_wares(self, experiment):
-        wares_list = experiment.wares_list
+        wares_list = experiment.wares
         variable = 0
         for ware in wares_list:
             variable += ware.calculate_route_efficiency()
         return variable/len(wares_list)
 
     def get_statistics_min_efficiency_wares(self, experiment):
-        wares_list = experiment.wares_list
+        wares_list = experiment.wares
         variable = wares_list[0].calculate_route_efficiency()
         for ware in wares_list:
             tmp_variable = ware.calculate_route_efficiency()
@@ -164,7 +164,7 @@ class Statistics():
         return variable
 
     def get_statistics_max_time_waiting_wares(self, experiment):
-        wares_list = experiment.wares_list
+        wares_list = experiment.wares
         variable = wares_list[0].calculate_total_time_waiting()
         for ware in wares_list:
             tmp_variable = ware.calculate_total_time_waiting()
@@ -173,7 +173,7 @@ class Statistics():
         return variable
 
     def get_statistics_mean_time_waiting_wares(self, experiment):
-        wares_list = experiment.wares_list
+        wares_list = experiment.wares
         variable = 0
         total_wares = len(wares_list)
         for ware in wares_list:
@@ -185,7 +185,7 @@ class Statistics():
         return 1.0*variable/total_wares
 
     def get_statistics_min_time_waiting_wares(self, experiment):
-        wares_list = experiment.wares_list
+        wares_list = experiment.wares
         variable = wares_list[0].calculate_total_time_waiting()
         for ware in wares_list:
             tmp_variable = ware.calculate_total_time_waiting()
