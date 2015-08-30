@@ -1,75 +1,7 @@
 
-from settings import TEST_CASES, SHIPS, PORTS, POSSIBLE_TESTS_CASES, STATISTICS_DISPLAYS, STATISTICS_TO_DO
+from settings import TEST_CASES, SHIPS, PORTS, POSSIBLE_TESTS_CASES, STATISTICS_DISPLAYS
 from core.one_experiment import execute_one_experiment
-from core.statistics import Statistics, DESCRIPTIONS
-from core.modules import import_ship_class, import_port_class
-
-class MultiexperimentsStatistics(Statistics):
-    statistics_to_save=[]
-
-    def add_statistics(self, experiment, one_test=[1,1,1]):
-        for itr in range(len(STATISTICS_TO_DO)):
-            stats_to_do=STATISTICS_TO_DO[itr]
-            value = self.calculate_one_statistics(experiment, stats_to_do)
-            self.statistics_to_save[itr][one_test[0]-1][one_test[1]-1]=value
-        return True
-
-    def prepare_statistics(self, test_case=[[0,0,0],[1,1,0]]):
-        ships_range = 1
-        ports_range = 1
-        for case in test_case:
-            if ships_range < case[1]:
-                ships_range = case[1]
-            if ports_range < case[0]:
-                ports_range = case[0]
-        base = [[["" for dim1 in range(ships_range)]
-            for dim2 in range(ports_range)]
-            for dim3 in range(len(STATISTICS_TO_DO))
-            ]
-        self.statistics_to_save = base
-        return base
-
-    def round_value(self, value):
-        if value=="":
-            return " - "
-        if type(value) is int:
-            return value
-        decimals = 0.0001
-        while decimals < abs(value):
-            decimals *= 10
-        decimals /= 10000 #here is approximation
-        new_value = round(value/decimals)
-        return new_value*decimals
-
-    def print_one_table(self, table):
-        port_range = len(table)
-        ship_range = len(table[0])
-        text = "| P\\S |"
-        for itrS in range(ship_range):
-            ship_class = import_ship_class(itrS+1)
-            ship_instance = ship_class()
-            text += " "+ship_instance.read_table_description()+" |"
-        text += "\n|----|"
-        for itrS in range(ship_range):
-            text += "----|"
-        for itrP in range(port_range):
-            for itrS in range(ship_range+1):
-                if itrS==0:
-                    port_class = import_port_class(itrP+1)
-                    port_instance = port_class()
-                    text += "\n| "+port_instance.read_table_description()+" |"
-                else:
-                    value = table[itrP][itrS-1]
-                    text += " "+str(self.round_value(value))+" |"
-        print(text+"\n")
-
-    def print_tables(self):
-        for itr in range(len(STATISTICS_TO_DO)):
-            stats_key = STATISTICS_TO_DO[itr]
-            stats_name = DESCRIPTIONS[stats_key][2]
-            table_to_print = self.statistics_to_save[itr]
-            print("\n"+str(stats_name)+"\n")
-            self.print_one_table(table_to_print)
+from core.statistics import Statistics, DESCRIPTIONS, MultiexperimentsStatistics, BestStatistics
 
 
 class TestsList():
@@ -140,6 +72,7 @@ def execute_all():
     for itr in range(len(all_tests)):
         test_case = test_list.list_of_test[itr]
         stats = MultiexperimentsStatistics()
+        optimization = BestStatistics()
         stats.prepare_statistics(test_case)
         if test_case == []:
             continue
@@ -150,8 +83,9 @@ def execute_all():
                 ship_class_number=test[1],
                 test_case=test[2],
                 do_stats=STATISTICS_DISPLAYS["show statistics for experiments"])
-            if STATISTICS_DISPLAYS["show markdown tables"]:
-                stats.add_statistics(experiment, test)
-        if STATISTICS_DISPLAYS["show markdown tables"]:
-            stats.print_tables()
+            stats.add_statistics(experiment, test)
+            optimization.add_best_statistics(experiment, test)
+        stats.print_tables()
+        optimization.print_best_results()
+        optimization.print_table()
     return all_tests
