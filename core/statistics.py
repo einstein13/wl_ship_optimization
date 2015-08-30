@@ -352,6 +352,10 @@ class MultiexperimentsStatistics(Statistics):
 class BestStatistics(MultiexperimentsStatistics):
     statistics_to_save=[]
 
+    def prepare_statistics(self):
+        self.statistics_to_save=[]
+        return True
+
     def get_port_full_description(self, number):
         port_class = import_port_class(number)
         port_instance = port_class()
@@ -383,7 +387,7 @@ class BestStatistics(MultiexperimentsStatistics):
         text += "\n"
         text += "Best value: "
         text += str(self.round_value(best_stats[0]))
-        print text
+        print(text)
         return True
 
     def print_table(self):
@@ -405,5 +409,5 @@ class BestStatistics(MultiexperimentsStatistics):
             text += self.get_ship_table_description(score[2])
             text += " |\n"
             old_value = rounded
-        print text
+        print(text)
         return True

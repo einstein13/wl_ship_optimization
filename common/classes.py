@@ -1,6 +1,6 @@
 # ships, wares and ports common classes
 
-from settings import VELOCITY
+from settings import VELOCITY, WARES_MAX
 from core.logic import find_distance
 from core.lists import delete_elements_from_list, debug_list, debug_list_all
 
@@ -112,7 +112,7 @@ class ListOfWares():
     def space_left(self):
         # useful for ships
         # how many wares can be loaded to a ship
-        return 30-self.number_of_wares()
+        return WARES_MAX - self.number_of_wares()
 
     def update_distances_for_wares(self, distance):
         # useful for ships

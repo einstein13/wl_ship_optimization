@@ -69,11 +69,12 @@ def execute_all():
     STATISTICS_DISPLAYS["help text"]=False
     test_list=TestsList()
     all_tests=test_list.create_list_of_tests()
+    stats = MultiexperimentsStatistics()
+    optimization = BestStatistics()
     for itr in range(len(all_tests)):
         test_case = test_list.list_of_test[itr]
-        stats = MultiexperimentsStatistics()
-        optimization = BestStatistics()
         stats.prepare_statistics(test_case)
+        optimization.prepare_statistics()
         if test_case == []:
             continue
         print("======\nTEST CASE "+str(itr+1)+"\n======")

@@ -6,6 +6,7 @@ here goes settings used in whole project
 # please add only file names in ships folder, no ".py" needed
 SHIPS = ['ship_basic',
     'ship_Tibor',
+    'ship_Tibor_cpp',
     'ship_einstein_01',
     'ship_einstein_02']
 

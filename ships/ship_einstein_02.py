@@ -1,6 +1,6 @@
 from core.lists import get_nested_elements, find_new_elements
 from core.logic import calculate_route_length
-from ships.ship_einstein import Ship as Ship_basic
+from ships.ship_einstein_01 import Ship as Ship_basic
 
 class Ship(Ship_basic):
 
