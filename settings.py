@@ -33,8 +33,20 @@ ONE_TEST = (1,3)
 #    [1, 1, [1,2,3]] (first port and ship classes for test cases 1, 2, 3)
 #    [[1,2],[1,2,3], 1] (all pairs port-ship for 1 & 2 ports and 1, 2 & 3 ships, all for first test case)
 TEST_CASES = [
-    [-1, -1, 5]
+    [-1, -1, -1]
     ]
+
+# How difficult tests are.
+# Higher number - more wares, shorter time, longer distances.
+# Possible values:
+#    1 - Slow mode - long time between appearing wares,
+#        mostly to see if algorithms aren't working in very strange way
+#    2 - Standard mode - middle time between appearing wares, middle distances,
+#        mostly to see if everything is working fine with more complex problems,
+#        plus if the algorithm is just wrong (much worse than basic one)
+#    3 - Stressed mode - lots of wares at once, long distances,
+#        mostly to see the difference in very complex situations
+TEST_MODE = 3
 
 # number of wares that can hold a ship
 WARES_MAX = 30
@@ -76,11 +88,11 @@ STATISTICS_TO_DO = (
 # stats display
 # all of them are True/False
 STATISTICS_DISPLAYS = {
-    "short class descriptions" : False,
+    "short class descriptions" : True,
     "separate lines" : True,
     "help text" : False,
-    "show statistics for experiments": True, #for execute_all.py only, shows experiments results
-    "show markdown tables": True, #for execute_all.py only, show all experiments results at once
+    "show statistics for experiments": False, #for execute_all.py only, shows experiments results
+    "show markdown tables": False, #for execute_all.py only, show all experiments results at once
     "get optimized statistics": True, #for execute_all.py only, STATISTICS_TO_OPTIMIZE value needed
     }
 
