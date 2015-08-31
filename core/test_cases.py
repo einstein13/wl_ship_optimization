@@ -34,8 +34,9 @@ def wares_test1(ware_class, ports_list, basic_distance):
     total_time_iterations = 0
     port_list_last = len(ports_list)-1
     # max delta time between "expected" and "real"
+    time_distance = basic_distance
     max_delta = 5
-    if max_delta*2 > basic_distance:
+    if max_delta*2 > time_distance:
         # all wares are in time-sequence
         max_delta = 0
     # generate "random" events
@@ -51,7 +52,8 @@ def wares_test1(ware_class, ports_list, basic_distance):
             tmp2 = random.randint(0,port_list_last)
         new_ware.set_ports(ports_list[tmp1],ports_list[tmp2])
         # then: time
-        total_time_iterations += random.randint(basic_distance-max_delta, basic_distance+max_delta)
+        total_time_iterations += time_distance
+        total_time_iterations += random.randint(max_delta, max_delta)
         new_ware.set_time_begin(total_time_iterations*STEP_TIME)
         new_ware.description_debug+=str(itr+1)
         wares_list.append(new_ware)
@@ -95,6 +97,7 @@ def wares_test2(ware_class, ports_list, basic_distance):
     total_time_iterations = 0
     port_list_last = len(ports_list)-1
     # max delta time between "expected" and "real"
+    time_distance = basic_distance//4
     max_delta = 5
     if max_delta*2 > basic_distance:
         # all wares are in time-sequence
@@ -112,7 +115,8 @@ def wares_test2(ware_class, ports_list, basic_distance):
             tmp2 = random.randint(0,port_list_last)
         new_ware.set_ports(ports_list[tmp1],ports_list[tmp2])
         # then: time
-        total_time_iterations += random.randint(basic_distance//4-max_delta, basic_distance//4+max_delta)
+        total_time_iterations += time_distance
+        total_time_iterations += random.randint(-max_delta, max_delta)
         new_ware.set_time_begin(total_time_iterations*STEP_TIME)
         new_ware.description_debug+=str(itr+1)
         wares_list.append(new_ware)
@@ -162,12 +166,12 @@ def wares_test3(ware_class, ports_list, basic_distance):
     total_time_iterations = 0
     port_list_last = len(ports_list)-1
     # max delta time between "expected" and "real"
+    time_distance = basic_distance//2
     max_delta = 3
     # generate "random" events
     for itr in range(300):
         # for STEP_TIME = 1.8 & basic_distance = 20
         # approximate time = 1.5 hours (to start all wares)
-        total_time_iterations = (itr+1)*basic_distance//2 + random.randint(-max_delta,+max_delta)
         new_ware = ware_class()
         # first: ports (start and destination)
         tmp1 = 0
@@ -177,6 +181,8 @@ def wares_test3(ware_class, ports_list, basic_distance):
             tmp2 = random.randint(0,port_list_last)
         new_ware.set_ports(ports_list[tmp1],ports_list[tmp2])
         # then: time
+        total_time_iterations += time_distance
+        total_time_iterations += random.randint(-max_delta, max_delta)
         new_ware.set_time_begin(total_time_iterations*STEP_TIME)
         new_ware.description_debug+=str(itr+1)
         wares_list.append(new_ware)
@@ -222,12 +228,14 @@ def wares_test4(ware_class, ports_list, basic_distance):
     total_time_iterations = 0
     port_list_last = len(ports_list)-1
     # max delta time between "expected" and "real"
+    time_distance = basic_distance//4
     max_delta = 3
+    if max_delta > time_distance:
+        max_delta = 0
     # generate "random" events
     for itr in range(300):
         # for STEP_TIME = 1.8 & basic_distance = 20
         # approximate time = 1.5 hours (to start all wares)
-        total_time_iterations = (itr+1)*(basic_distance+10)//5 + random.randint(-max_delta,+max_delta)
         new_ware = ware_class()
         # first: ports (start and destination)
         tmp1 = 0
@@ -237,6 +245,8 @@ def wares_test4(ware_class, ports_list, basic_distance):
             tmp2 = random.randint(0,port_list_last)
         new_ware.set_ports(ports_list[tmp1],ports_list[tmp2])
         # then: time
+        total_time_iterations += time_distance
+        total_time_iterations += random.randint(-max_delta, max_delta)
         new_ware.set_time_begin(total_time_iterations*STEP_TIME)
         new_ware.description_debug+=str(itr+1)
         wares_list.append(new_ware)
@@ -287,11 +297,12 @@ def ships_test5(ship_class, ports_list):
 def wares_test5(ware_class, ports_list, basic_distance):
     wares_list = []
     total_time_iterations = 0
+    time_distance = 1
+    max_delta = 0
     # generate "random" events
     for itr1 in range(1200):
         # for STEP_TIME = 1.8
         # approximate time = 0.6 hours (to start all wares)
-        total_time_iterations += 1
         new_ware = ware_class()
         port_check1 = random.randint(0,200)
         port_check2 = random.randint(0,200)
@@ -356,6 +367,8 @@ def wares_test5(ware_class, ports_list, basic_distance):
             print("ERROR: wrong start and destination settings for ware")
         new_ware.set_ports(ports_list[tmp1],ports_list[tmp2])
         # then: time
+        total_time_iterations += time_distance
+        total_time_iterations += random.randint(-max_delta, max_delta)
         new_ware.set_time_begin(total_time_iterations*STEP_TIME)
         new_ware.description_debug+=str(itr1+1)
         wares_list.append(new_ware)
