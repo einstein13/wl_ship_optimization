@@ -1,4 +1,5 @@
 from settings import STATISTICS_TO_DO, STATISTICS_DISPLAYS, STATISTICS_TO_OPTIMIZE
+from core.modules import import_ship_class, import_port_class
 
 # DESCRIPTIONS dictionary describes all text used by Statistics class
 # name : [
@@ -243,13 +244,18 @@ class Statistics():
             return text_to_return
         return ""
 
+    def get_class_description(self, instance):
+        if STATISTICS_DISPLAYS["short class descriptions"]:
+            return instance.read_short_description()
+        return instance.read_full_description()
+
     def print_classes_descriptions(self, experiment):
         port_class=experiment.ports_list[0]
         ship_class=experiment.ships_list[0]
         text = "\nPORTS:\n"
-        text += port_class.read_short_description()
+        text += self.get_class_description(port_class)
         text += "\nSHIPS:\n"
-        text += ship_class.read_short_description()
+        text += self.get_class_description(ship_class)
         print(text)
         return 0
 
@@ -261,3 +267,147 @@ class Statistics():
         print(text)
         return 0
 
+class MultiexperimentsStatistics(Statistics):
+    statistics_to_save=[]
+
+    def add_statistics(self, experiment, one_test=[1,1,1]):
+        if not STATISTICS_DISPLAYS["show markdown tables"]:
+            return False
+        for itr in range(len(STATISTICS_TO_DO)):
+            stats_to_do=STATISTICS_TO_DO[itr]
+            value = self.calculate_one_statistics(experiment, stats_to_do)
+            self.statistics_to_save[itr][one_test[0]-1][one_test[1]-1]=value
+        return True
+
+    def prepare_statistics(self, test_case=[[0,0,0],[1,1,0]]):
+        ships_range = 1
+        ports_range = 1
+        for case in test_case:
+            if ships_range < case[1]:
+                ships_range = case[1]
+            if ports_range < case[0]:
+                ports_range = case[0]
+        base = [[["" for dim1 in range(ships_range)]
+            for dim2 in range(ports_range)]
+            for dim3 in range(len(STATISTICS_TO_DO))
+            ]
+        self.statistics_to_save = base
+        return base
+
+    def round_value(self, value):
+        if value=="":
+            return " - "
+        if type(value) is int:
+            return value
+        decimals = 0.0001
+        while decimals < abs(value):
+            decimals *= 10
+        decimals /= 10000 #here is approximation
+        new_value = round(value/decimals)
+        return new_value*decimals
+
+    def get_port_table_description(self, number):
+        port_class = import_port_class(number)
+        port_instance = port_class()
+        return port_instance.read_table_description()
+
+    def get_ship_table_description(self, number):
+        ship_class = import_ship_class(number)
+        ship_instance = ship_class()
+        return ship_instance.read_table_description()
+
+    def print_one_table(self, table):
+        port_range = len(table)
+        ship_range = len(table[0])
+        text = "| P\\S |"
+        for itrS in range(ship_range):
+            text += " "
+            text += self.get_ship_table_description(itrS+1)
+            text += " |"
+        text += "\n|----|"
+        for itrS in range(ship_range):
+            text += "----|"
+        for itrP in range(port_range):
+            for itrS in range(ship_range+1):
+                if itrS==0:
+                    text += "\n| "
+                    text += self.get_port_table_description(itrP+1)
+                    text += " |"
+                else:
+                    value = table[itrP][itrS-1]
+                    text += " "+str(self.round_value(value))+" |"
+        print(text+"\n")
+
+    def print_tables(self):
+        if not STATISTICS_DISPLAYS["show markdown tables"]:
+            return False
+        for itr in range(len(STATISTICS_TO_DO)):
+            stats_key = STATISTICS_TO_DO[itr]
+            stats_name = DESCRIPTIONS[stats_key][2]
+            table_to_print = self.statistics_to_save[itr]
+            print("\n"+str(stats_name)+"\n")
+            self.print_one_table(table_to_print)
+        return True
+
+class BestStatistics(MultiexperimentsStatistics):
+    statistics_to_save=[]
+
+    def prepare_statistics(self):
+        self.statistics_to_save=[]
+        return True
+
+    def get_port_full_description(self, number):
+        port_class = import_port_class(number)
+        port_instance = port_class()
+        return self.get_class_description(port_instance)
+
+    def get_ship_full_description(self, number):
+        ship_class = import_ship_class(number)
+        ship_instance = ship_class()
+        return self.get_class_description(ship_instance)
+
+    def add_best_statistics(self, experiment, one_test):
+        if not STATISTICS_DISPLAYS["get optimized statistics"]:
+            return False
+        value = self.calculate_one_statistics(experiment, STATISTICS_TO_OPTIMIZE)
+        self.statistics_to_save.append([value, one_test[0], one_test[1]])
+        return True
+
+    def print_best_results(self):
+        if not STATISTICS_DISPLAYS["get optimized statistics"]:
+            return False
+        self.statistics_to_save.sort()
+        text = "\nSTATISTICS OPTIMIZATION\n"
+        text += "Optimized with: \""+STATISTICS_TO_OPTIMIZE+"\"\n"
+        text += "Best results:\nPort: "
+        best_stats = self.statistics_to_save[0]
+        text += self.get_port_full_description(best_stats[1])
+        text += "\nShip: "
+        text += self.get_ship_full_description(best_stats[2])
+        text += "\n"
+        text += "Best value: "
+        text += str(self.round_value(best_stats[0]))
+        print(text)
+        return True
+
+    def print_table(self):
+        if not STATISTICS_DISPLAYS["get optimized statistics"]:
+            return False
+        self.statistics_to_save.sort()
+        text = "\nAll results in table:\n\n"
+        text += "| Value | Port class | Ship class |\n"
+        text += "|----|----|----|\n"
+        old_value = self.statistics_to_save[0][0]*2+1
+        for score in self.statistics_to_save:
+            rounded =self.round_value(score[0])
+            if rounded != old_value:
+                text += "| "+str(score[0])+" | "
+            else:
+                text += "| `` | "
+            text += self.get_port_table_description(score[1])
+            text += " | "
+            text += self.get_ship_table_description(score[2])
+            text += " |\n"
+            old_value = rounded
+        print(text)
+        return True

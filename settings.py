@@ -6,6 +6,7 @@ here goes settings used in whole project
 # please add only file names in ships folder, no ".py" needed
 SHIPS = ['ship_basic',
     'ship_Tibor',
+    'ship_Tibor_cpp',
     'ship_einstein_01',
     'ship_einstein_02']
 
@@ -62,9 +63,9 @@ STATISTICS_TO_DO = (
     "wares: mean distance of journey",
     #"wares: max distance of journey",
     #"wares: min time of existence",
-    #"wares: mean time of existence",
+    "wares: mean time of existence",
     #"wares: max time of existence",
-    "wares: max journey efficiency",
+    #"wares: max journey efficiency",
     "wares: mean journey efficiency",
     "wares: min journey efficiency",
     "wares: max time waiting",
@@ -75,13 +76,13 @@ STATISTICS_TO_DO = (
 # stats display
 # all of them are True/False
 STATISTICS_DISPLAYS = {
-    "short class descriptions" : True,
+    "short class descriptions" : False,
     "separate lines" : True,
     "help text" : False,
-    "show statistics for experiments": True, #for execute_all.py only
-    "show markdown tables": True, #for execute_all.py only
+    "show statistics for experiments": True, #for execute_all.py only, shows experiments results
+    "show markdown tables": True, #for execute_all.py only, show all experiments results at once
+    "get optimized statistics": True, #for execute_all.py only, STATISTICS_TO_OPTIMIZE value needed
     }
 
 # stats optimization (used for execute_all.py)
-# now it is disabled- nothing special going right now about it
-STATISTICS_TO_OPTIMIZE = "general: total simulation time"
+STATISTICS_TO_OPTIMIZE = "wares: mean journey efficiency"
