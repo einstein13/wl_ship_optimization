@@ -34,7 +34,7 @@ ONE_TEST = (1,3)
 #    [1, 1, [1,2,3]] (first port and ship classes for test cases 1, 2, 3)
 #    [[1,2],[1,2,3], 1] (all pairs port-ship for 1 & 2 ports and 1, 2 & 3 ships, all for first test case)
 TEST_CASES = [
-    [-1, [4,5,6], -1]
+    [-1, -1, -1]
     ]
 
 # How difficult tests are.
@@ -92,8 +92,8 @@ STATISTICS_DISPLAYS = {
     "short class descriptions" : True,
     "separate lines" : True,
     "help text" : False,
-    "show statistics for experiments": False, #for execute_all.py only, shows experiments results
-    "show markdown tables": False, #for execute_all.py only, show all experiments results at once
+    "show statistics for experiments": True, #for execute_all.py only, shows experiments results
+    "show markdown tables": True, #for execute_all.py only, show all experiments results at once
     "get optimized statistics": True, #for execute_all.py only, STATISTICS_TO_OPTIMIZE value needed
     }
 
