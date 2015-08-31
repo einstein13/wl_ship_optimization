@@ -8,7 +8,8 @@ SHIPS = ['ship_basic',
     'ship_Tibor',
     'ship_Tibor_cpp',
     'ship_einstein_01',
-    'ship_einstein_02']
+    'ship_einstein_02',
+    'ship_einstein_03']
 
 # ports classes that can be used in the experiment
 # please add only file names in ships folder, no ".py" needed
@@ -33,7 +34,7 @@ ONE_TEST = (1,3)
 #    [1, 1, [1,2,3]] (first port and ship classes for test cases 1, 2, 3)
 #    [[1,2],[1,2,3], 1] (all pairs port-ship for 1 & 2 ports and 1, 2 & 3 ships, all for first test case)
 TEST_CASES = [
-    [-1, -1, -1]
+    [-1, [4,5,6], -1]
     ]
 
 # How difficult tests are.
@@ -46,7 +47,7 @@ TEST_CASES = [
 #        plus if the algorithm is just wrong (much worse than basic one)
 #    3 - Stressed mode - lots of wares at once, long distances,
 #        mostly to see the difference in very complex situations
-TEST_MODE = 3
+TEST_MODE = 2
 
 # number of wares that can hold a ship
 WARES_MAX = 30

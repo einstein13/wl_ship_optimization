@@ -401,7 +401,7 @@ class BestStatistics(MultiexperimentsStatistics):
         for score in self.statistics_to_save:
             rounded =self.round_value(score[0])
             if rounded != old_value:
-                text += "| "+str(score[0])+" | "
+                text += "| "+str(rounded)+" | "
             else:
                 text += "| `` | "
             text += self.get_port_table_description(score[1])

@@ -31,7 +31,7 @@ class RouteList():
             del self.route_list[index]
         return True
 
-    def get_k_factor(self):
+    def get_k_factor(self, old_path, new_path):
         return 1.2 # now it is a constant
 
     def add_new_port_inside(self, new_port):
@@ -70,7 +70,7 @@ class RouteList():
                     new_path = list(old_path)
                     new_path.insert(point3, new_port)
                     new_length = calculate_route_length(new_path)
-                    k_factor = self.get_k_factor()
+                    k_factor = self.get_k_factor(old_path, new_path)
                     # if new path is in borders of k_factor
                     if old_length*k_factor > new_length:
                         # add port to route list with status "1"
